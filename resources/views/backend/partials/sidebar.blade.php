@@ -79,22 +79,44 @@
             </li> --}}
 
 
-        <li
-            class="menu-item {{ request()->routeIs('social.*') ? 'open' : '' }}">
+            <li
+            class="menu-item {{ request()->routeIs('social.*') || request()->routeIs('profile.*')  ? 'open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon bi bi-gear"></i>
                 <div data-i18n="Layouts">  Settings</div>
             </a>
-            <ul class="menu-sub {{ Request::routeIs('social.index') ? 'active' : '' }}">
-                <li class="menu-item">
+            <ul class="menu-sub">
+                <li class="menu-item {{ Request::routeIs('social.index') ? 'active' : '' }}">
                     <a href="{{ route('social.index') }}" class="menu-link">
 
                        Social Media
                     </a>
                 </li>
 
+                <li class="menu-item {{ Request::routeIs('profile.setting') ? 'active' : '' }}">
+                    <a href="{{ route('profile.setting') }}" class="menu-link">
+                        Profile Setting
+                    </a>
+                </li>
             </ul>
         </li>
+
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">CMS</span></li>
+        <li
+        class="menu-item {{ request()->routeIs('whychoose_our_property.*') ? 'open' : '' }}">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-layout"></i>
+            <div data-i18n="Layouts">Property Feature</div>
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ Request::routeIs('whychoose_our_property.index') ? 'active' : ''}}">
+                <a href="{{ route('whychoose_our_property.index') }}" class="menu-link">
+                    <small>Why Choose Our Property</small>
+                </a>
+            </li>
+
+        </ul>
+    </li>
 
     </ul>
 </aside>
