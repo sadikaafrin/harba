@@ -39,5 +39,8 @@ Route::post('/update-profile-picture', [ProfileController::class, 'UpdateProfile
     Route::patch('/cms/support_section', [WhyCohosePropertyController::class, 'supportSectionStore'])->name('support_section.update');
     Route::patch('/cms/admin_section', [WhyCohosePropertyController::class, 'adminSection'])->name('admin_section.update');
     Route::patch('/cms/mobile_friendly', [WhyCohosePropertyController::class, 'mobileFriendly'])->name('mobile_friendly.update');
+    Route::patch('/cms/message', [WhyCohosePropertyController::class, 'message'])->name('message.update');
+    Route::patch('/cms/image', [WhyCohosePropertyController::class, 'image'])->name('image.update');
+
 
 

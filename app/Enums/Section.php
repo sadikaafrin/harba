@@ -15,4 +15,6 @@ final class Section extends Enum
     const SupportSection = 'suppost_section';
     const AdminSection = 'admin_section';
     const MobileFriendly = 'mobile_friendly';
+    const Message = 'message';
+    const Image = 'image';
 }

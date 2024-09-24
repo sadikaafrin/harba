@@ -16,7 +16,8 @@ class WhyCohosePropertyController extends Controller
         $supportData = CMS::where('page', Page::HomePage)->where('section', Section::SupportSection)->first();
         $adminSection = CMS::where('page', Page::HomePage)->where('section', Section::AdminSection)->first();
         $mobileFriendly = CMS::where('page', Page::HomePage)->where('section', Section::MobileFriendly)->first();
-        return view('backend.layout.cms.why_choose_property', compact('data', 'supportData', 'adminSection', 'mobileFriendly'));
+        $message = CMS::where('page', Page::HomePage)->where('section', Section::Message)->first();
+        return view('backend.layout.cms.why_choose_property', compact('data', 'supportData', 'adminSection', 'mobileFriendly', 'message'));
     }
 
     public function store(Request $request)
@@ -52,8 +53,8 @@ class WhyCohosePropertyController extends Controller
     public function supportSectionStore(Request $request)
     {
 
-          // Validate the incoming request data
-          $request->validate([
+        // Validate the incoming request data
+        $request->validate([
             'title' => 'nullable|string|max:255',
             'sub_title' => 'nullable|string|max:255',
         ]);
@@ -81,8 +82,8 @@ class WhyCohosePropertyController extends Controller
     public function adminSection(Request $request)
     {
 
-          // Validate the incoming request data
-          $request->validate([
+        // Validate the incoming request data
+        $request->validate([
             'title' => 'nullable|string|max:255',
             'sub_title' => 'nullable|string|max:255',
         ]);
@@ -110,8 +111,8 @@ class WhyCohosePropertyController extends Controller
     public function mobileFriendly(Request $request)
     {
 
-          // Validate the incoming request data
-          $request->validate([
+        // Validate the incoming request data
+        $request->validate([
             'title' => 'nullable|string|max:255',
             'sub_title' => 'nullable|string|max:255',
         ]);
@@ -136,5 +137,52 @@ class WhyCohosePropertyController extends Controller
         }
     }
 
+    public function message(Request $request)
+    {
 
+        // Validate the incoming request data
+        $request->validate([
+            'title' => 'nullable|string|max:255',
+            'name' => 'nullable|string|max:255',
+            'expert_designation' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,svg,webp|max:2048',
+        ]);
+
+        // Find the existing CMS entry or create a new one
+        $data = CMS::where('page', Page::HomePage)->where('section', Section::Message)->first();
+        $imagePath = $data ? $data->image : null;
+
+        // Handling file upload
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists
+            if ($imagePath) {
+                deleteImage($imagePath);
+            }
+
+            // Store the new image
+            $imagePath = uploadImage($request->file('image'), 'property', $request->title);
+        }
+
+        // Update or create the CMS entry
+        $data =  CMS::updateOrCreate(
+            [
+                'page' => Page::HomePage,
+                'section' => Section::Message,
+            ],
+            [
+                'title' => $request->title,
+                'name' => $request->name,
+                'expert_designation' => $request->expert_designation,
+                'image' => $imagePath,
+            ]
+
+        );
+
+
+        if ($data) {
+            return redirect()->back()->with('t-success', 'Data Updated Successfully');
+        } else {
+            return redirect()->back()->with('t-error', 'Data update failed!');
+        }
+    }
 }
