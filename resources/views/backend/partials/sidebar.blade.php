@@ -103,10 +103,10 @@
 
         <li class="menu-header small text-uppercase"><span class="menu-header-text">CMS</span></li>
         <li
-        class="menu-item {{ request()->routeIs('whychoose_our_property.*') ? 'open' : '' }}">
+        class="menu-item {{ request()->routeIs('whychoose_our_property.*') || request()->routeIs('work-section.*') || request()->routeIs('discove-section.*') || request()->routeIs(' contact-section.*') ? 'open' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-layout"></i>
-            <div data-i18n="Layouts">Property Feature</div>
+            <div data-i18n="Layouts">CMS</div>
         </a>
         <ul class="menu-sub">
             <li class="menu-item {{ Request::routeIs('whychoose_our_property.index') ? 'active' : ''}}">
@@ -114,7 +114,22 @@
                     <small>Why Choose Our Property</small>
                 </a>
             </li>
+            <li class="menu-item {{ Request::routeIs('work-section.index') ? 'active' : ''}}">
+                <a href="{{ route('work-section.index') }}" class="menu-link">
+                    <small>How our platfrom work</small>
+                </a>
+            </li>
+            <li class="menu-item {{ Request::routeIs('discove-section.index') ? 'active' : ''}}">
+                <a href="{{ route('discove-section.index') }}" class="menu-link">
+                    <small>Discover Section</small>
+                </a>
+            </li>
 
+            <li class="menu-item {{ Request::routeIs('contact-section.index') ? 'active' : ''}}">
+                <a href="{{ route('contact-section.index') }}" class="menu-link">
+                    <small>Contact Section</small>
+                </a>
+            </li>
         </ul>
     </li>
 

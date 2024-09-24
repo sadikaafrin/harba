@@ -151,3 +151,27 @@
              console.error(error);
          });
  </script>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#description1'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#description2'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#description3'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>

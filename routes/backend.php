@@ -6,6 +6,9 @@ use App\Http\Controllers\Web\Backend\DashboardController;
 use App\Http\Controllers\Web\Backend\Settings\SocialMediaController;
 use App\Http\Controllers\Web\Backend\Settings\ProfileController;
 use App\Http\Controllers\Web\Backend\CMS\WhyCohosePropertyController;
+use App\Http\Controllers\Web\Backend\CMS\WorkSectionController;
+use App\Http\Controllers\Web\Backend\CMS\DiscoverController;
+use App\Http\Controllers\Web\Backend\CMS\ContactController;
 
 //!Route for DashboardController
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -44,3 +47,16 @@ Route::post('/update-profile-picture', [ProfileController::class, 'UpdateProfile
 
 
 
+    Route::get('/cms/worksection', [WorkSectionController::class, 'index'])->name('work-section.index');
+    Route::patch('/cms/work-section-update', [WorkSectionController::class, 'store'])->name('work-section.update');
+    Route::patch('/cms/work-section-one', [WorkSectionController::class, 'workSectionOne'])->name('work-section-one.update');
+    Route::patch('/cms/work-section-two', [WorkSectionController::class, 'workSectionTwo'])->name('work-section-two.update');
+    Route::patch('/cms/work-section-three', [WorkSectionController::class, 'workSectionThree'])->name('work-section-three.update');
+    Route::patch('/cms/work-section-image', [WorkSectionController::class, 'workSectionImage'])->name('work-section-image.update');
+
+
+    Route::get('/cms/discove-section', [DiscoverController::class, 'index'])->name('discove-section.index');
+    Route::patch('/cms/discove-section-update', [DiscoverController::class, 'store'])->name('discove-section.update');
+
+    Route::get('/cms/contact-section', [ContactController::class, 'index'])->name('contact-section.index');
+    Route::patch('/cms/contact-section-update', [ContactController::class, 'store'])->name('contact-section.update');

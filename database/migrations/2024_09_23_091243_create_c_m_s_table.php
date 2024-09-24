@@ -25,9 +25,11 @@ return new class extends Migration
             $table->string('button_text')->nullable();
             $table->string('link_url')->nullable();
             $table->string('name')->nullable();
+            $table->string('phone_number')->nullable();
             $table->string('question')->nullable();
             $table->string('section_header')->nullable();
             $table->string('expert_designation')->nullable();
+            $table->string('email')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
 
             $table->timestamps();
