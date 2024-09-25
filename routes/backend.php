@@ -10,6 +10,7 @@ use App\Http\Controllers\Web\Backend\CMS\WorkSectionController;
 use App\Http\Controllers\Web\Backend\CMS\DiscoverController;
 use App\Http\Controllers\Web\Backend\CMS\ContactController;
 
+Route::middleware(['auth', 'role:admin'])->group(function () {
 //!Route for DashboardController
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -60,3 +61,5 @@ Route::post('/update-profile-picture', [ProfileController::class, 'UpdateProfile
 
     Route::get('/cms/contact-section', [ContactController::class, 'index'])->name('contact-section.index');
     Route::patch('/cms/contact-section-update', [ContactController::class, 'store'])->name('contact-section.update');
+
+});
