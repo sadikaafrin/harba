@@ -14,10 +14,10 @@
                     </div>
                     <div class="card-body">
 
-                        <form method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('appartment-type.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="name">Category Name</label>
+                                <label class="col-sm-2 col-form-label" for="name">Appartment Type</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
                                         id="name" name="name" value="{{ old('name') }}" />

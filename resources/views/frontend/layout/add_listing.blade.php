@@ -45,23 +45,26 @@
                                                     <!-- listsearch-input-item -->
                                                     <div class="cs-intputwrap">
                                                         <i class="fa-light fa-building"></i>
-                                                        <select data-placeholder="Categories"
-                                                            class="chosen-select on-radius no-search-select">
-                                                            <option>Appartement Types</option>
-                                                            <option>Sale</option>
-                                                            <option>Rent</option>
-                                                            <option>Comercial</option>
+                                                        <select name="category_id" id="category_id" class="chosen-select on-radius no-search-select">
+                                                            <option value="">Select Category</option>
+                                                            @foreach ($categories as $category)
+                                                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                                    {{ $category->name }}
+                                                                </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
-                                                    <!-- listsearch-input-item -->
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="cs-intputwrap">
                                                         <i class="fa-light fa-layer-group"></i>
                                                         <select data-placeholder="Categories"
-                                                            class="chosen-select on-radius no-search-select">
+                                                            class="chosen-select on-radius no-search-select" name="appartment_type_id" id="appartment_type_id">
                                                             <option>Appartement Categories</option>
+                                                            @foreach ($appartmentTyp as $type)
                                                             <option>House</option>
+                                                            @endforeach
+
                                                             <option>Apartment</option>
                                                             <option>Hotel</option>
                                                             <option>Villa</option>

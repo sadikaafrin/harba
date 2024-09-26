@@ -19,7 +19,7 @@ class BannerController extends Controller
 
             $request->validate(
                 [
-                   'image'=>'required|image',
+                   'image'=>'required|image|mimes:jpeg,png,jpg,gif|dimensions:min_width=100,min_height=100,max_width=600,max_height=500',
                    'name'=>'required',
                    'sub_title'=>'required',
                    'description'=>'required',
@@ -72,11 +72,23 @@ public function get(){
          {
 
 
+            $request->validate(
+                [
+                   'image'=>'required|image|mimes:jpeg,png,jpg,gif|dimensions:min_width=100,min_height=100,max_width=600,max_height=500',
+                   'name'=>'required',
+                   'sub_title'=>'required',
+                   'description'=>'required',
+                   'button'=>'required'
+                ],
+                ['required'=>'You must fill the field with a proper information'],
+                ['image.required'=>'A valid image has be uploaded']
+                );
 
-            $imageName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('backend/img'), $imageName);
+
             $data=Banner::find($request->id);
             $data->id=$request->id;
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('backend/img'), $imageName);
             $data->image=$imageName;
             $data->name=$request->name;
             $data->sub_title=$request->sub_title;

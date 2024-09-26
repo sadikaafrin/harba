@@ -3,32 +3,23 @@
 namespace App\Http\Controllers\Web\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\AllCity;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\JsonResponse;
 use Exception;
 
-class CategoryController extends Controller
+
+class AllCityController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Category::query();
+            $data = AllCity::query();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('name', function ($data) {
                     return $data->name;
-                })
-                ->addColumn('action', function ($data) {
-                    return '<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <a href="' . route('category.edit', $data->id) . '" type="button" class="btn btn-primary text-white" title="Edit">
-                        <i class="bi bi-pencil"></i>
-                        </a>
-                        <a href="#" onclick="showDeleteConfirm(' . $data->id . ')" type="button" class="btn btn-danger text-white" title="Delete">
-                        <i class="bi bi-trash"></i>
-                        </a>
-                    </div>';
                 })
                 ->addColumn('status', function ($data) {
                     $status = ' <div class="form-check form-switch">';
@@ -40,21 +31,31 @@ class CategoryController extends Controller
 
                     return $status;
                 })
+                ->addColumn('action', function ($data) {
+                    return '<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                        <a href="' . route('all-cities.edit', $data->id) . '" type="button" class="btn btn-primary text-white" title="Edit">
+                        <i class="bi bi-pencil"></i>
+                        </a>
+                        <a href="#" onclick="showDeleteConfirm(' . $data->id . ')" type="button" class="btn btn-danger text-white" title="Delete">
+                        <i class="bi bi-trash"></i>
+                        </a>
+                    </div>';
+                })
                 ->filterColumn('name', function($query, $keyword) {
                     $query->where('name', 'like', "%{$keyword}%");
                 })
                 ->filterColumn('status', function($query, $keyword) {
                     $query->where('status', 'like', "%{$keyword}%");
                 })
-                ->rawColumns(['action', 'name', 'status'])
+                ->rawColumns(['action', 'status']) // No need for 'name' to be raw
                 ->make(true);
         }
 
-        return view('backend.layout.category.index');
+        return view('backend.layout.all-cities.index');
     }
     public function create()
     {
-        return view('backend.layout.category.create');
+        return view('backend.layout.all-cities.create');
     }
      // store CourseCategory
      public function store(Request $request)
@@ -67,17 +68,17 @@ class CategoryController extends Controller
          $slug = $request->input('slug') ?: generateUniqueSlug($request->input('name'), 'categories');
 
          // Create and save the new course card
-         $category = new Category();
-         $category->name = $request->input('name');
-         $category->slug = $slug;
-         $category->save();
-         return redirect()->route('category.index')->with('t-success', 'Data Updated Successfully');
+         $city = new AllCity();
+         $city->name = $request->input('name');
+         $city->slug = $slug;
+         $city->save();
+         return redirect()->route('all-cities.index')->with('t-success', 'Data Updated Successfully');
      }
 
      public function edit($id)
      {
-         $data = Category::find($id);
-         return view('backend.layout.category.edit', compact('data'));
+         $data = AllCity::find($id);
+         return view('backend.layout.all-cities.edit', compact('data'));
      }
 
      public function update(Request $request, $id)
@@ -87,17 +88,17 @@ class CategoryController extends Controller
      ]);
 
      // Find the existing course category
-     $courseCategory = Category::findOrFail($id);
+   $city = AllCity::findOrFail($id);
 
      // Generate a unique slug if not provided
      $slug = $request->input('slug') ?: generateUniqueSlug($request->input('name'), 'categories', $id);
 
      // Update the course category with the new data
-     $courseCategory->name = $request->input('name');
-     $courseCategory->slug = $slug;
-     $courseCategory->save();
+   $city->name = $request->input('name');
+   $city->slug = $slug;
+   $city->save();
 
-     return redirect()->route('category.index')->with('t-success', 'Data Updated Successfully');
+     return redirect()->route('all-cities.index')->with('t-success', 'Data Updated Successfully');
  }
 
      /**
@@ -108,7 +109,7 @@ class CategoryController extends Controller
       */
      public function status(int $id): JsonResponse
      {
-         $data = Category::findOrFail($id);
+         $data = AllCity::findOrFail($id);
          if ($data->status == 'active') {
              $data->status = 'inactive';
              $data->save();
@@ -139,7 +140,7 @@ class CategoryController extends Controller
      public function destroy(int $id): JsonResponse
      {
          try {
-             $data = Category::findOrFail($id);
+             $data = AllCity::findOrFail($id);
              $data->delete();
 
              return response()->json([
@@ -153,6 +154,4 @@ class CategoryController extends Controller
              ]);
          }
      }
-
-
 }
