@@ -71,8 +71,13 @@ public function get(){
   public function update(Request $request)
          {
 
+
+
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('backend/img'), $imageName);
             $data=Banner::find($request->id);
-            $data->image=$request->image;
+            $data->id=$request->id;
+            $data->image=$imageName;
             $data->name=$request->name;
             $data->sub_title=$request->sub_title;
             $data->description=$request->description;
@@ -81,4 +86,4 @@ public function get(){
             return redirect()->back();
          }
 
-}
+        }

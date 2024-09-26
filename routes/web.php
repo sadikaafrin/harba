@@ -32,10 +32,6 @@ use App\Http\Controllers\Web\Frontend\AddListingController;
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-
-
-
-
 //!Route for HomeController
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 

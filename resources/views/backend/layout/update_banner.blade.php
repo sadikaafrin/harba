@@ -23,7 +23,7 @@
 
         <div class="mb-3 mt-3">
             <label for="image">Photo</label>
-            <input type="text" class="form-control" id="image" value="{{$datas['image']}}" name="image">
+            <input type="file" class="form-control dropify" id="image" value="{{$datas['image']}}" name="image">
           </div>
 
           <div class="mb-3 mt-3">
@@ -45,5 +45,9 @@
           </div>
         <button type="submit" class="btn btn-primary btn-clr">SAVE</button>
       </form>
+
+      <script>
+        $('.dropify').dropify();
+    </script>
 </body>
 </html>

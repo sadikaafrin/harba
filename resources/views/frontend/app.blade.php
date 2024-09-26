@@ -154,7 +154,7 @@
       @include('frontend.partials.register')
       <!-- progress-bar end -->
       <!--map-modal -->
-      {{-- <div class="map-modal-wrap">
+      <div class="map-modal-wrap">
         <div class="map-modal-wrap-overlay"></div>
         <div class="map-modal-item">
           <div class="map-modal-container fl-wrap">
@@ -172,7 +172,7 @@
             </div>
           </div>
         </div>
-      </div> --}}
+      </div>
       <!--map-modal end -->
     </div>
     <!-- Main end -->

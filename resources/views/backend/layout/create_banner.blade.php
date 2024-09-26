@@ -26,7 +26,7 @@
 
         <div class="mb-3 mt-3">
             <label for="image">Photo</label>
-            <input type="file" class="form-control" id="image" placeholder="Enter image" name="image">
+            <input type="file" class="form-control dropify" id="image" placeholder="Enter image" name="image">
           </div>
           @error('image')
                     <div class="text-danger">{{ $message }}</div>
@@ -64,5 +64,9 @@
         <button type="submit" class="btn btn-primary btn-clr">SAVE</button>
       </form>
     </div>
+
+    <script>
+        $('.dropify').dropify();
+    </script>
 </body>
 </html>
