@@ -1,3 +1,5 @@
+
+
 function initRenstate() {
     "use strict";
     $(".loader-wrap").fadeOut(300, function () {
@@ -406,8 +408,8 @@ function initRenstate() {
         zoom: false
     });
     var vid_src = $(".popup_video").data("videolink");
-    $(".lg-video-object").find("source").attr("src", vid_src);	
-    //   scrollToFixed ------------------	
+    $(".lg-video-object").find("source").attr("src", vid_src);
+    //   scrollToFixed ------------------
     $(".fixed-form").scrollToFixed({
         minWidth: 1068,
         zIndex: 112,
@@ -470,11 +472,11 @@ function initRenstate() {
             }, 1000);
         });
     });
-    // share------------------	
+    // share------------------
     $(".share-container").share({
         networks: ['facebook', 'pinterest', 'tumblr', 'twitter', 'linkedin']
     });
-    //   Video------------------	
+    //   Video------------------
     if ($(".video-holder-wrap").length > 0) {
         function videoint() {
             var w = $(".background-vimeo").data("vim"),
@@ -615,7 +617,7 @@ function initRenstate() {
         csselem();
         mobMenuInit();
     });
-    //  forms ------------------		
+    //  forms ------------------
     $('.chosen-select').niceSelect();
     // date picker------------------
     $('input[name="datepicker-here"]').daterangepicker({
@@ -739,7 +741,7 @@ function initRenstate() {
                 $("<span></span>").text(files[i].name).appendTo(pufzone);
             }
         });
-    });	
+    });
     var $window = $(window);
     $window.scroll(function () {
         var a = $(document).height();
@@ -880,7 +882,7 @@ function initRenstate() {
     setInterval(function () {
         heroAnim();
     }, 3000);
-    
+
 }
 $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">');
 document.addEventListener('gesturestart', function (e) {

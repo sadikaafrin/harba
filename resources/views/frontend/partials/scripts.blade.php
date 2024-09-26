@@ -6,3 +6,9 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=YOU_API_KEY_HERE&libraries=places"></script>
 <script src="{{ asset('frontend/js/db-scripts.js') }}"></script>
+
+
+
+
+
+@stack('script')

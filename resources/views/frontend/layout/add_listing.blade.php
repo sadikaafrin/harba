@@ -1,4 +1,29 @@
 @extends('frontend.app')
+{{-- @push('css')
+    <style>
+        .image-preview {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
+.preview-image {
+    width: 100px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.delete-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+    </style>
+@endpush --}}
 @section('content')
     <div class="content">
         <!--container-->
@@ -45,10 +70,12 @@
                                                     <!-- listsearch-input-item -->
                                                     <div class="cs-intputwrap">
                                                         <i class="fa-light fa-building"></i>
-                                                        <select name="category_id" id="category_id" class="chosen-select on-radius no-search-select">
+                                                        <select name="category_id" id="category_id"
+                                                            class="chosen-select on-radius no-search-select">
                                                             <option value="">Select Category</option>
                                                             @foreach ($categories as $category)
-                                                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                                <option value="{{ $category->id }}"
+                                                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                                                     {{ $category->name }}
                                                                 </option>
                                                             @endforeach
@@ -59,16 +86,17 @@
                                                     <div class="cs-intputwrap">
                                                         <i class="fa-light fa-layer-group"></i>
                                                         <select data-placeholder="Categories"
-                                                            class="chosen-select on-radius no-search-select" name="appartment_type_id" id="appartment_type_id">
+                                                            class="chosen-select on-radius no-search-select"
+                                                            name="appartment_type_id" id="appartment_type_id">
                                                             <option>Appartement Categories</option>
-                                                            @foreach ($appartmentTyp as $type)
-                                                            <option>House</option>
+                                                            @foreach ($appartmenType as $type)
+                                                                <option value="{{ $type->id }}"
+                                                                    {{ old('appartment_type_id') == $type->id }}>
+                                                                    {{ $type->name }}
+                                                                </option>
                                                             @endforeach
 
-                                                            <option>Apartment</option>
-                                                            <option>Hotel</option>
-                                                            <option>Villa</option>
-                                                            <option>Office</option>
+
                                                         </select>
                                                     </div>
                                                 </div>
@@ -120,16 +148,15 @@
                                                     <div class="cs-intputwrap">
                                                         <i class="fa-light fa-city"></i>
                                                         <select data-placeholder="All Cities"
-                                                            class="chosen-select on-radius no-search-select">
+                                                            class="chosen-select on-radius no-search-select"
+                                                            name="all_cities_id" id="all_cities_id">
                                                             <option>All Cities</option>
-                                                            <option>New York</option>
-                                                            <option>London</option>
-                                                            <option>Paris</option>
-                                                            <option>Kiev</option>
-                                                            <option>Moscow</option>
-                                                            <option>Dubai</option>
-                                                            <option>Rome</option>
-                                                            <option>Beijing</option>
+                                                            @foreach ($allCity as $city)
+                                                                <option value="{{ $city->id }}"
+                                                                    {{ old('all_cities_id') == $type->id }}>
+                                                                    {{ $city->name }}
+                                                                </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                     <!-- listsearch-input-item end-->
@@ -147,15 +174,13 @@
                                     </div>
                                     <!--dasboard-content-item end-->
                                     <!--dasboard-content-item-->
-                                    <div class="dasboard-content-item" style="margin-top: 20px">
+                                    <div class="dashboard-content-item" style="margin-top: 20px">
                                         <div class="dashboard-widget-title-single">
                                             Upload Property Media
                                         </div>
                                         <div class="custom-form">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <!-- listsearch-input-item -->
-                                                    <!-- listsearch-input-item -->
                                                     <form class="fuzone">
                                                         <div class="fu-text">
                                                             <span><i class="fa-light fa-cloud-arrow-up"></i>
@@ -164,11 +189,33 @@
                                                         </div>
                                                         <input type="file" class="upload" multiple />
                                                     </form>
-                                                    <!-- listsearch-input-item -->
+                                                    <!-- Image Preview Container -->
+                                                    <div id="image-preview-container" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;"></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    {{-- <div class="dashboard-content-item" style="margin-top: 20px">
+                                        <div class="dashboard-widget-title-single">
+                                            Upload Property Media
+                                        </div>
+                                        <div class="custom-form">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <form class="fuzone" id="mediaUploadForm">
+                                                        <div class="fu-text">
+                                                            <span><i class="fa-light fa-cloud-arrow-up"></i>
+                                                                Click here or drop files to upload</span>
+                                                            <div class="photoUpload-files fl-wrap" id="previewContainer">
+                                                            </div>
+                                                        </div>
+                                                        <input type="file" class="upload" multiple id="fileInput" />
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+
                                     <!--dasboard-content-item end-->
                                     <!--dasboard-content-item-->
                                     <div class="dasboard-content-item" style="margin-top: 20px">
@@ -183,7 +230,8 @@
                                                             <!-- listsearch-input-item -->
                                                             <div class="cs-intputwrap">
                                                                 <i class="fa-light fa-chart-area"></i>
-                                                                <input type="text" placeholder="Area:" value="" />
+                                                                <input type="text" placeholder="Area:"
+                                                                    value="" />
                                                             </div>
                                                             <!-- listsearch-input-item -->
                                                         </div>
@@ -244,65 +292,15 @@
                                                         Amenities:
                                                     </div>
                                                     <ul class="filter-tags no-list-style ds-tg">
-                                                        <li>
-                                                            <input id="check-aaa5" type="checkbox" name="check"
-                                                                checked="" />
-                                                            <label for="check-aaa5"> Wi Fi</label>
-                                                        </li>
-                                                        <li>
-                                                            <input id="check-bb5" type="checkbox" name="check"
-                                                                checked="" />
-                                                            <label for="check-bb5">Swimming</label>
-                                                        </li>
-                                                        <li>
-                                                            <input id="check-dd5" type="checkbox" name="check" />
-                                                            <label for="check-dd5"> Security</label>
-                                                        </li>
-                                                        <li>
-                                                            <input id="check-cc5" type="checkbox" name="check" />
-                                                            <label for="check-cc5"> Laundry Room</label>
-                                                        </li>
-                                                        <li>
-                                                            <input id="check-ff5" type="checkbox" name="check"
-                                                                checked="" />
-                                                            <label for="check-ff5">
-                                                                Equipped Kitchen</label>
-                                                        </li>
-                                                        <li>
-                                                            <input id="check-c4" type="checkbox" name="check" />
-                                                            <label for="check-c4">Air Conditioning</label>
-                                                        </li>
-                                                        <li>
-                                                            <input id="check-c18" type="checkbox" name="check" />
-                                                            <label for="check-c18">Parking</label>
-                                                        </li>
-                                                        <li>
-                                                            <input id="check-bb53" type="checkbox" name="check"
-                                                                checked="" />
-                                                            <label for="check-bb53">Garage Attached</label>
-                                                        </li>
-                                                        <li>
-                                                            <input id="check-dd54" type="checkbox" name="check" />
-                                                            <label for="check-dd54"> Fireplace</label>
-                                                        </li>
-                                                        <li>
-                                                            <input id="check-cc555" type="checkbox" name="check" />
-                                                            <label for="check-cc555">
-                                                                Window Covering</label>
-                                                        </li>
-                                                        <li>
-                                                            <input id="check-ff511" type="checkbox" name="check"
-                                                                checked="" />
-                                                            <label for="check-ff511">Back yard</label>
-                                                        </li>
-                                                        <li>
-                                                            <input id="check-c444" type="checkbox" name="check" />
-                                                            <label for="check-c444">Fitness Gym</label>
-                                                        </li>
-                                                        <li>
-                                                            <input id="check-c1843" type="checkbox" name="check" />
-                                                            <label for="check-c1843">Elevator in building</label>
-                                                        </li>
+                                                        @foreach ($amenities as $amenity)
+                                                            <li>
+                                                                <input id="check-{{ $amenity->id }}" type="checkbox"
+                                                                    name="amenities[]" value="{{ $amenity->id }}" />
+                                                                <label
+                                                                    for="check-{{ $amenity->id }}">{{ $amenity->title }}</label>
+                                                            </li>
+                                                        @endforeach
+
                                                     </ul>
                                                 </div>
                                                 <div class="col-lg-6">
@@ -350,3 +348,54 @@
         <!-- container end-->
     </div>
 @endsection
+
+@push('script')
+<script>
+   $('.fuzone input').each(function () {
+    $(this).on('change', function () {
+        var previewContainer = $('#image-preview-container');
+        previewContainer.empty(); // Clear previous previews
+
+        var files = $(this)[0].files;
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var reader = new FileReader();
+
+            reader.onload = (function (file) {
+                return function (e) {
+                    // Create a container for the image and its name
+                    var container = $("<div class='file-item'></div>");
+
+                    // Create an image element
+                    var img = $("<img>").attr("src", e.target.result).css({ width: '100px', height: 'auto' });
+
+                    // Create a name element
+                    var name = $("<span></span>").text(file.name).css({ display: 'block', textAlign: 'center' });
+
+                    // Create a remove button
+                    var removeButton = $("<button class='remove-btn'>&times;</button>")
+                        .css({
+                            background: 'none',
+                            border: 'none',
+                            color: 'red',
+                            cursor: 'pointer',
+                            fontSize: '18px'
+                        })
+                        .on('click', function () {
+                            container.remove(); // Remove the image container
+                        });
+
+                    // Append image, name, and remove button to the container
+                    container.append(img).append(name).append(removeButton);
+                    previewContainer.append(container);
+                };
+            })(file);
+
+            reader.readAsDataURL(file); // Read the file as a data URL
+        }
+    });
+});
+
+</script>
+@endpush

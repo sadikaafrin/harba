@@ -14,9 +14,11 @@ class AddListingController extends Controller
     public function AddListing()
     {
         $categories = Category::all();
-        $appartmentTyp = AppartmentType::all();
+        $appartmenType = AppartmentType::all();
         $allCity = AllCity::all();
-        $amenities = Amenity::all();
-         return view('frontend.layout.add_listing', compact('categories', 'appartmentTyp', 'allCity', 'amenities'));
+        $amenities = Amenity::all(); // Retrieve all amenities
+
+
+         return view('frontend.layout.add_listing', compact('categories', 'appartmenType', 'allCity', 'amenities'));
     }
 }

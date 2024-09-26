@@ -11,9 +11,9 @@ class Property extends Model
     use HasFactory, SoftDeletes;
     // protected $fillable = ['user_id', 'category_id', 'appartment_type_id', 'property_title', 'price', 'keyword', 'phone', 'email', 'all_cities_id', 'address', 'area', 'bedroom', 'parking', 'accomudation', 'website', 'details', 'brochure_pdf'];
     protected $guarded = [];
-    public function amenities()
+    public function properties()
     {
-        return $this->belongsToMany(Amenity::class);
+        return $this->belongsToMany(Property::class, 'amenity_property');
     }
 
 
