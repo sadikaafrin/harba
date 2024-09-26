@@ -14,13 +14,14 @@
                     </div>
                     <div class="card-body">
 
-                        <form method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('category.update', $data->id) }}" enctype="multipart/form-data">
                             @csrf
+
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="name">Category Name</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        id="name" name="name" value="{{ old('name') }}" />
+                                        id="name" name="name" value="{{ old('name', $data->name) }}" />
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -30,7 +31,7 @@
                             </div>
                             <div class="row justify-content-end">
                                 <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </div>
                         </form>

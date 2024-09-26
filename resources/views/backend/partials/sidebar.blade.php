@@ -57,7 +57,7 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboards -->
-        <li class="menu-item active open">
+        <li class="menu-item active ">
             <a href="{{ route('dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Dashboards">Dashboards</div>
@@ -68,6 +68,30 @@
             <a href="{{ route('category.index') }}" class="menu-link">
                 <i class="menu-icon bi bi-buildings-fill"></i>
                 <div data-i18n="Dashboards"> Property Category</div>
+
+            </a>
+        </li>
+
+        <li class="menu-item {{ Request::routeIs('appartment-type.index') ? 'active' : ' ' }}">
+            <a href="{{ route('appartment-type.index') }}" class="menu-link">
+                <i class="menu-icon bi bi-list-columns-reverse"></i>
+                <div data-i18n="Dashboards">Appartment Type</div>
+
+            </a>
+        </li>
+
+        <li class="menu-item {{ Request::routeIs('all-cities.index') ? 'active' : ' ' }}">
+            <a href="{{ route('all-cities.index') }}" class="menu-link">
+                <i class="menu-icon bi bi-mailbox-flag"></i>
+                <div data-i18n="Dashboards">All City</div>
+
+            </a>
+        </li>
+
+        <li class="menu-item {{ Request::routeIs('amenities.index') ? 'active' : ' ' }}">
+            <a href="{{ route('amenities.index') }}" class="menu-link">
+                <i class="menu-icon bi bi-houses-fill"></i>
+                <div data-i18n="Dashboards">Amenity</div>
 
             </a>
         </li>

@@ -14,8 +14,8 @@
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="d-flex justify-content-between align-items-center mt-3 p-3">
-                    <h5 class="mb-0">Property Category</h5>
-                    <a href="{{ route('category.create') }}" class="btn btn-primary">Add New</a>
+                    <h5 class="mb-0">All Amenities</h5>
+                    <a href="{{ route('amenities.create') }}" class="btn btn-primary">Add New</a>
                 </div>
 
                 <div class="table-responsive mt-4 p-4">
@@ -23,7 +23,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Category Name</th>
+                                <th>Anemities </th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -68,7 +68,7 @@
     pagingType: "full_numbers",
     dom: "<'row justify-content-between table-topbar'<'col-md-2 col-sm-4 px-0'l><'col-md-2 col-sm-4 px-0'f>>tipr",
     ajax: {
-        url: "{{ route('category.index') }}",
+        url: "{{ route('amenities.index') }}",
         type: "get",
     },
 
@@ -79,8 +79,8 @@
             searchable: false
         },
         {
-            data: 'name',   // Should match the name used in the PHP method
-            name: 'name',
+            data: 'title',   // Should match the name used in the PHP method
+            name: 'title',
             orderable: true,
             searchable: true
         },
@@ -118,7 +118,7 @@
 
         // Delete Button
         function deleteItem(id) {
-            let url = '{{ route('category.destroy', ':id') }}';
+            let url = '{{ route('amenities.destroy', ':id') }}';
             let csrfToken = '{{ csrf_token() }}';
             $.ajax({
                 type: "DELETE",
@@ -160,7 +160,7 @@
 
         // Status Change
         function statusChange(id) {
-            var url = '{{ route('category.status', ':id') }}';
+            var url = '{{ route('amenities.status', ':id') }}';
             $.ajax({
                 type: "GET",
                 url: url.replace(':id', id),
