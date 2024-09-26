@@ -19,7 +19,7 @@ class BannerController extends Controller
 
             $request->validate(
                 [
-                   'image'=>'required|image|mimes:jpeg,png,jpg,gif|dimensions:min_width=100,min_height=100,max_width=600,max_height=500',
+                   'image'=>'required|image|mimes:jpeg,png,jpg,gif',
                    'name'=>'required',
                    'sub_title'=>'required',
                    'description'=>'required',
@@ -74,7 +74,7 @@ public function get(){
 
             $request->validate(
                 [
-                   'image'=>'required|image|mimes:jpeg,png,jpg,gif|dimensions:min_width=100,min_height=100,max_width=600,max_height=500',
+                   'image'=>'required|image|mimes:jpeg,png,jpg,gif',
                    'name'=>'required',
                    'sub_title'=>'required',
                    'description'=>'required',
