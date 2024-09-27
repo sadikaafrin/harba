@@ -67,8 +67,8 @@
 
         </li>
 
-        <li class="menu-item {{ Request::routeIs('CreateBanner.index') ? 'active' : ' ' }}">
-            <a href="{{ route('CreateBanner.index') }}" class="menu-link">
+        <li class="menu-item {{ Request::routeIs('ShowBanner.get') ? 'active' : ' ' }}">
+            <a href="{{ route('ShowBanner.get') }}" class="menu-link">
                 <i class="menu-icon bi bi-houses-fill"></i>
                 <div data-i18n="Dashboards">Banner Section</div>
 
@@ -97,6 +97,13 @@
             <a href="{{ route('all-cities.index') }}" class="menu-link">
                 <i class="menu-icon bi bi-mailbox-flag"></i>
                 <div data-i18n="Dashboards">All City</div>
+
+            </a>
+        </li>
+        <li class="menu-item {{ Request::routeIs('ShowServiceType.get') ? 'active' : ' ' }}">
+            <a href="{{ route('ShowServiceType.get') }}" class="menu-link">
+                <i class="menu-icon bi bi-houses-fill"></i>
+                <div data-i18n="Dashboards">Service Type</div>
 
             </a>
         </li>

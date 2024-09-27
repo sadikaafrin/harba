@@ -40,14 +40,14 @@
                 @include('backend.partials.navbar')
                 <!-- / Navbar -->
                   <!-- Content -->
-                  @yield('content2')
+
 
                   <!-- / Content -->
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
                     @yield('content')
-
+                    @yield('content2')
                     <!-- / Content -->
 
 

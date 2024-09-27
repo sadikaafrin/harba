@@ -1,59 +1,100 @@
 @extends('backend.app')
 @section('content')
-        @if (session('success'))
+@if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
-        <form action="/create_banner" method="POST" enctype="multipart/form-data">
-            @csrf
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+        {{-- <h4 class="py-3 mb-4"><span class="text-muted fw-light">Forms/</span> Horizontal Layouts</h4> --}}
 
+        <!-- Basic Layout & Basic with Icons -->
+        <div class="row">
+            <!-- Basic Layout -->
+            <div class="col-xxl">
+                <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h3 class="mb-0"></h3>
+                    </div>
+                    <div class="card-body">
 
+                        <form method="POST" action="/create_banner" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="image">Image</label>
+                                <div class="col-sm-10">
+                                    <input type="file" class="form-control dropify @error('image') is-invalid @enderror"
+                                        id="image" name="image" value="{{ old('image') }}" />
+                                    @error('image')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="name">Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        id="name" name="name" value="{{ old('name') }}" />
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
 
-            <div class="mb-3 mt-3">
-                <label for="image">Image</label>
-                <input type="file" class="form-control dropify" id="image" name="image">
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="sub_title">Sub title</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control @error('sub_title') is-invalid @enderror"
+                                        id="sub_title" name="sub_title" value="{{ old('sub_title') }}" />
+                                    @error('sub_title')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="description">Write Description</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control @error('description') is-invalid @enderror"
+                                        id="description" name="description" value="{{ old('description') }}"></textarea>
+                                    @error('description')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="button">Button Text</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control @error('button') is-invalid @enderror"
+                                        id="button" name="button" value="{{ old('button') }}" />
+                                    @error('button')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            @error('image')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-            <div class="mb-3 mt-3">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
-            </div>
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-            <div class="mb-3 mt-3">
-                <label for="sub_title">Sub Title</label>
-                <input type="text" class="form-control" id="sub_title" placeholder="Enter sub title"
-                    name="sub_title">
-            </div>
-            @error('sub_title')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-            <div class="mb-3 mt-3">
-                <label for="description">Write Description</label>
-                <textarea class="form-control" id="description" placeholder="Description..."
-                    name="description"></textarea>
-            </div>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-            <div class="mb-3 mt-3">
-                <label for="button">Button text</label>
-                <input type="text" class="form-control" id="button" placeholder="Button text" name="button">
-            </div>
-            @error('button')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-            <button type="submit" class="btn btn-primary btn-clr">SAVE</button>
-        </form>
+        </div>
     </div>
-
     <script>
         $('.dropify').dropify();
     </script>
-@endsection
+    <!-- / Content
+        @endsection
