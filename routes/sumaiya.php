@@ -31,6 +31,7 @@ Route::get('/create_banner', [BannerController::class, 'index'])->name('CreateBa
  //Route::get('/create_request', [RequestController::class, 'index'])->name('CreateRequest.index');
  Route::post('/create_request', [RequestController::class, 'save']);
  Route::get('/show_request', [RequestController::class, 'get'])->name('ShowRequest.get');
+ Route::post('/search_request', [RequestController::class, 'ssearch'])->name('SearchRequest.ssearch');
  //Route::get('/update_request/{id}', [RequestController::class, 'edit']);
  //Route::post('/update_request', [RequestController::class, 'update']);
  //Route::get('/delete_request/{id}', [RequestController::class, 'delete']);

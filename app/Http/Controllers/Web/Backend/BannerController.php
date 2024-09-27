@@ -23,7 +23,7 @@ class BannerController extends Controller
                    'image'=>'required|image|mimes:jpeg,png,jpg,gif',
                    'name'=>'required',
                    'sub_title'=>'required',
-                   'description'=>'required',
+                   'description'=>'required|string|max:1000',
                    'button'=>'required'
                 ],
                 ['required'=>'You must fill the field with a proper information'],

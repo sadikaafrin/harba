@@ -46,6 +46,7 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
+                    @yield('contentS')
                     @yield('content')
                     @yield('content2')
                     <!-- / Content -->
