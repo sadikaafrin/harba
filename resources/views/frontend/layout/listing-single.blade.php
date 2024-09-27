@@ -702,9 +702,13 @@
                         </div>
                         <div class="custom-form" id="single_cf">
                           <form
-                            method="post"
-                            name="contact-property-form"
-                          >
+                          action="/create_request"
+                            method="post">
+                          @csrf
+
+                          <div class="cs-intputwrap">
+                            <i class="fa-light fa-user"></i>
+
                             <div class="cs-intputwrap">
                               <i class="fa-light fa-user"></i>
                               <input
@@ -712,7 +716,7 @@
                                 type="text"
                                 placeholder="Your name"
                                 onClick="this.select()"
-                                value=""
+
                               />
                             </div>
                             <div class="cs-intputwrap">
@@ -722,7 +726,7 @@
                                 type="text"
                                 placeholder="Your Phone"
                                 onClick="this.select()"
-                                value=""
+
                               />
                             </div>
                             <div class="row">
@@ -731,11 +735,11 @@
                                   <i class="fa-light fa-calendar"></i>
                                   <div class="date-container">
                                     <input
-                                      type="text"
+                                      type="date"
                                       placeholder="Date"
-                                      id="res_date"
-                                      name="datepicker-here"
-                                      value=""
+                                      id="request_date"
+                                      name="request_date"
+
                                     />
                                   </div>
                                 </div>
@@ -745,22 +749,22 @@
                                   <i class="fa-light fa-calendar"></i>
                                   <select
                                     data-placeholder="Time"
-                                    class="chosen-select on-radius no-search-select"
+                                    class="chosen-select on-radius no-search-select"   name="request_time" id="request_time"
                                   >
-                                    <option>9 AM</option>
-                                    <option>10 AM</option>
-                                    <option>11 AM</option>
-                                    <option>12 AM</option>
-                                    <option>13 PM</option>
-                                    <option>14 PM</option>
-                                    <option>15 PM</option>
-                                    <option>16 PM</option>
+                                    <option value="09:00:00">9:00</option>
+                                    <option value="10:00:00">10:00</option>
+                                    <option value="11:00:00">11:00</option>
+                                    <option value="12:00:00">12:00</option>
+                                    <option value="13:00:00">13:00</option>
+                                    <option value="14:00:00">14:00</option>
+                                    <option value="15:00:00">15:00</option>
+                                    <option value="16:00:00">16:00</option>
                                   </select>
                                 </div>
                               </div>
                             </div>
                             <button
-                              onclick="window.location.href='listing.html'"
+                              onclick="window.location.href=''"
                               class="commentssubmit commentssubmit_fw"
                             >
                               Send Request
