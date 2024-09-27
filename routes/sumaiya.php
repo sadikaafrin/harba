@@ -10,7 +10,7 @@ use App\Http\Controllers\Web\Backend\BannerController;
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
 
-Route::get('/create_banner', [BannerController::class, 'index']);
+Route::get('/create_banner', [BannerController::class, 'index'])->name('CreateBanner.index');
  Route::post('/create_banner', [BannerController::class, 'save']);
  Route::get('/show_banner',[BannerController::class,'get']);
  Route::get('/delete_banner/{id}',[BannerController::class,'delete']);

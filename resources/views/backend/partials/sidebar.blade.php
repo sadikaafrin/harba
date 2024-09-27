@@ -64,6 +64,18 @@
             </a>
         </li>
 
+
+        </li>
+
+        <li class="menu-item {{ Request::routeIs('CreateBanner.index') ? 'active' : ' ' }}">
+            <a href="{{ route('CreateBanner.index') }}" class="menu-link">
+                <i class="menu-icon bi bi-houses-fill"></i>
+                <div data-i18n="Dashboards">Banner Section</div>
+
+            </a>
+        </li>
+
+
         <li class="menu-item {{ Request::routeIs('category.index') ? 'active' : ' ' }}">
             <a href="{{ route('category.index') }}" class="menu-link">
                 <i class="menu-icon bi bi-buildings-fill"></i>
@@ -71,6 +83,7 @@
 
             </a>
         </li>
+
 
         <li class="menu-item {{ Request::routeIs('appartment-type.index') ? 'active' : ' ' }}">
             <a href="{{ route('appartment-type.index') }}" class="menu-link">

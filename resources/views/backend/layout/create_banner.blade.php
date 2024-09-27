@@ -35,15 +35,15 @@
             @enderror
 
             <div class="mb-3 mt-3">
-                <label for="description">Description</label>
-                <textarea class="form-control" id="description" placeholder="Description"
+                <label for="description">Write Description</label>
+                <textarea class="form-control" id="description" placeholder="Description..."
                     name="description"></textarea>
             </div>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
             <div class="mb-3 mt-3">
-                <label for="button">Description</label>
+                <label for="button">Button text</label>
                 <input type="text" class="form-control" id="button" placeholder="Button text" name="button">
             </div>
             @error('button')

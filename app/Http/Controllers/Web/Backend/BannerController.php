@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Web\Backend;
+use Illuminate\Support\Facades\File;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -56,6 +57,14 @@ public function get(){
   public function delete($id)
   {
      $data=Banner::find($id);
+     if ($data) {
+        // Define the path to the file in the public folder
+        $filePath = public_path('frontend/img/' . $data->file_name); // Adjust the path as needed
+
+        // Check if the file exists and delete it
+        if (File::exists($filePath)) {
+            File::delete($filePath);
+        }}
      $data->delete();
      return redirect()->back();
   }
