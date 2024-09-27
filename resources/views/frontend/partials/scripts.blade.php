@@ -9,6 +9,61 @@
 
 
 
+{{-- <script>
+    $('.fuzone input').each(function() {
+        $(this).on('change', function() {
+            var previewContainer = $('#image-preview-container');
+            previewContainer.empty(); // Clear previous previews
 
+            var files = $(this)[0].files;
+
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var reader = new FileReader();
+
+                reader.onload = (function(file) {
+                    return function(e) {
+                        // Create a container for the image
+                        var container = $("<div class='file-item'></div>").css({
+                            width: '150px',
+                            height: '150px',
+                            position: 'relative'
+                        });
+
+                        // Create an image element with object-fit and consistent size
+                        var img = $("<img>").attr("src", e.target.result).css({
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            borderRadius: '8px'
+                        });
+
+                        // Create a remove button
+                        var removeButton = $("<button class='remove-btn'>&times;</button>")
+                            .css({
+                                background: 'none',
+                                border: 'none',
+                                color: 'red',
+                                cursor: 'pointer',
+                                fontSize: '18px',
+                                position: 'absolute',
+                                top: '5px',
+                                right: '5px'
+                            })
+                            .on('click', function() {
+                                container.remove();
+                            });
+
+                        // Append image and remove button to the container
+                        container.append(img).append(removeButton);
+                        previewContainer.append(container);
+                    };
+                })(file);
+
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script> --}}
 
 @stack('script')

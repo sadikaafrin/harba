@@ -41,5 +41,7 @@ Route::get('/listing-single', [SinglePropertyController::class, 'index'])->name(
 Route::get('/listing', [ListingController::class, 'index'])->name('listing-search');
 
 Route::get('/add-listing', [AddListingController::class, 'AddListing'])->name('add-listing');
+Route::post('/add-listing', [AddListingController::class, 'store'])->name('add-listing.store');
+
 
 require __DIR__.'/auth.php';

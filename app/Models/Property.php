@@ -10,7 +10,26 @@ class Property extends Model
 {
     use HasFactory, SoftDeletes;
     // protected $fillable = ['user_id', 'category_id', 'appartment_type_id', 'property_title', 'price', 'keyword', 'phone', 'email', 'all_cities_id', 'address', 'area', 'bedroom', 'parking', 'accomudation', 'website', 'details', 'brochure_pdf'];
-    protected $guarded = [];
+    protected $fillable = [
+        'category_id',
+        'appartment_type_id',
+        'property_title',
+        'price',
+        'keyword',
+        'phone',
+        'email',
+        'all_cities_id',
+        'address',
+        'area',
+        'bedroom',
+        'bethrooms',
+        'parking',
+        'accomudation',
+        'website',
+        'details',
+        'user_id', // Add this line
+    ];
+    // protected $guarded = [];
     public function properties()
     {
         return $this->belongsToMany(Property::class, 'amenity_property');
@@ -36,10 +55,13 @@ class Property extends Model
     {
         return $this->belongsTo(AllCity::class, 'all_cities_id');
     }
+    public function amenities()
+    {
+        return $this->belongsToMany(Amenity::class, 'property_amenity', 'property_id', 'amenity_id');
+    }
 
     public function images()
     {
         return $this->hasMany(PropertyImage::class);
     }
-
 }

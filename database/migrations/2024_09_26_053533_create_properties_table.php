@@ -29,11 +29,12 @@ return new class extends Migration
             $table->text('address');
             $table->string('area');
             $table->integer('bedroom');
+            $table->integer('bethrooms');
             $table->string('parking');
             $table->string('accomudation');
             $table->string('website');
             $table->text('details');
-            $table->string('brochure_pdf');
+            // $table->string('brochure_pdf');
             $table->timestamps();
         });
     }
