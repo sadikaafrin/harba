@@ -37,6 +37,7 @@ Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
 
 Route::get('/listing-single/{id}', [SinglePropertyController::class, 'index'])->name('single-property');
+Route::get('/search-properties', [SinglePropertyController::class, 'search'])->name('properties.search');
 
 Route::get('/listing', [ListingController::class, 'index'])->name('listing-search');
 

@@ -62,34 +62,31 @@
 
             <!-- header-search-wrap -->
             <div class="header-search-wrap novis_search">
-                <div class="header-search">
-                    <div class="header-search-container">
-                        <div class="custom-form">
-                            <!-- listsearch-input-item -->
-                            <div class="cs-intputwrap">
-                                <i class="fa-light fa-house"></i>
-                                <input type="text" placeholder="Keywords..." value="">
-                            </div>
-                            <!-- listsearch-input-item -->
-                            <div class="cs-intputwrap">
-                                <i class="fa-light fa-location-dot"></i>
-                                <input type="text" placeholder="Location..." value="">
-                            </div>
-                            <!-- listsearch-input-item -->
-                            <div class="cs-intputwrap">
-                                <div class="price-range-wrap">
-                                    <label>Price Range</label>
-                                    <div class="price-rage-item">
-                                        <input type="text" class="price-range-double" data-min="100" data-max="100000"
-                                               name="price-range1" data-step="1" value="1" data-prefix="$">
+                <form action="{{ route('properties.search') }}" method="GET">
+                    <div class="header-search">
+                        <div class="header-search-container">
+                            <div class="custom-form">
+                                <!-- listsearch-input-item -->
+                                <div class="cs-intputwrap">
+                                    <i class="fa-light fa-house"></i>
+                                    <input type="text" name="property_title" placeholder="Keywords..." value="">
+                                </div>
+                                <!-- listsearch-input-item -->
+                                <div class="cs-intputwrap">
+                                    <div class="price-range-wrap">
+                                        <label>Price Range</label>
+                                        <div class="price-rage-item">
+                                            <input type="text" class="price-range-double" data-min="100" data-max="100000"
+                                                   name="price-range1" data-step="1" value="1" data-prefix="$">
+                                        </div>
                                     </div>
                                 </div>
+                                <!-- listsearch-input-item -->
+                                <button type="submit" class="commentssubmit commentssubmit_fw">Search</button>
                             </div>
-                            <!-- listsearch-input-item -->
-                            <button class="commentssubmit commentssubmit_fw">Search</button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
             <!-- header-search-wrap end -->
         </div>
