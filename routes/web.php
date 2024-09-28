@@ -36,7 +36,7 @@ use App\Http\Controllers\Web\Frontend\AddListingController;
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
 
-Route::get('/listing-single', [SinglePropertyController::class, 'index'])->name('single-property');
+Route::get('/listing-single/{id}', [SinglePropertyController::class, 'index'])->name('single-property');
 
 Route::get('/listing', [ListingController::class, 'index'])->name('listing-search');
 

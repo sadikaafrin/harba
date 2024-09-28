@@ -11,6 +11,7 @@ use App\Models\Property;
 use App\Models\PropertyImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Exception;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +50,7 @@ class AddListingController extends Controller
             'details' => 'nullable|string|max:1000',
             'amenities' => 'array',
             'images' => 'array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
         ]);
 
         // Return validation errors if any
@@ -76,7 +77,7 @@ class AddListingController extends Controller
             // Handle image upload
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
-                    $imagePath = uploadImage($image, 'add-properties', $property->property_title);
+                    $imagePath = uploadImage($image, 'add-properties', Str::uuid());
                     PropertyImage::create([
                         'property_id' => $property->id,
                         'images' => $imagePath,

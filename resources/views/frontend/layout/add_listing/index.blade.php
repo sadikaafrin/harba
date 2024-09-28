@@ -79,8 +79,6 @@
                                                                         {{ $type->name }}
                                                                     </option>
                                                                 @endforeach
-
-
                                                             </select>
                                                         </div>
                                                     </div>
@@ -308,7 +306,7 @@
                                 <!-- pricing-column end-->
                             </div>
                             <div class="limit-box"></div>
-                            </from>
+                        </from>
                     </div>
                     <!--boxed-container end-->
                 </div>
@@ -347,18 +345,19 @@
                         toastr.success(response.message); // Notify the user
                         $('#propertyForm')[0].reset(); // Reset the form
                         $('#image-preview-container').empty(); // Clear the image previews
-
-                        // Clear any displayed listings if applicable
-                        $('#properties-list').empty(); // Assuming this is your container for displaying listings
+                        $('#properties-list')
+                    .empty(); // Assuming this is your container for displaying listings
                     },
                     error: function(xhr) {
                         if (xhr.responseJSON && xhr.responseJSON.errors) {
                             let errors = xhr.responseJSON.errors;
                             $.each(errors, function(key, value) {
-                                toastr.error(value[0]); // Display the first error message for each field
+                                toastr.error(value[
+                                0]); // Display the first error message for each field
                             });
                         } else {
-                            toastr.error('An unexpected error occurred.'); // Fallback for unexpected errors
+                            toastr.error(
+                            'An unexpected error occurred.'); // Fallback for unexpected errors
                         }
                     }
                 });
@@ -394,7 +393,8 @@
                                 });
 
                                 // Create a remove button
-                                var removeButton = $("<button class='remove-btn'>&times;</button>")
+                                var removeButton = $(
+                                        "<button class='remove-btn'>&times;</button>")
                                     .css({
                                         background: 'none',
                                         border: 'none',
