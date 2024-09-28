@@ -45,4 +45,15 @@ class RequestController extends Controller
         return view('backend.layout.request.show_request',['infos'=>$data]);
       }
 
+
+
+      public function ssearch(Request $request){
+        $search=$request->search;
+        $data=Send_request::where('name', $search)
+        ->orWhere('phone', $search)
+        ->orWhere('request_date', $search)
+        ->orWhere('request_time', $search)
+        ->get();
+        return view('backend.layout.request.show_request',['info'=>$data]);
+      }
 }
