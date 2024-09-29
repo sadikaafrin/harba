@@ -32,17 +32,20 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
 
 
 
-        $avatarPath = null;
-        // Ensure you use the correct field name 'avatar'
-        if ($request->hasFile('avatar')) {
-            $profile_picture = uploadImage($request->file('avatar'), 'avatars', $request->input('name'));
+       
+        // // Initialize $profile_picture as null by default
+        $profile_picture = null;
+
+        // Ensure you use the correct field name 'profile_picture'
+        if ($request->hasFile('profile_picture')) {
+            $profile_picture = uploadImage($request->file('profile_picture'), 'avatars', $request->input('name'));
         }
 
 
