@@ -73,7 +73,7 @@
                                 <div id="tab-2" class="tab-content">
                                     <div class="custom-form">
                                         <form method="POST" action="{{ route('register') }}" name="registerform"
-                                            class="main-register-form" id="main-register-form2" enctype="multipart/form-data">
+                                            class="main-register-form" id="main-register-form2">
                                             @csrf
                                             <!-- Full Name Input -->
                                             <div class="cs-intputwrap">
@@ -113,14 +113,13 @@
                                                 <input type="password" name="password_confirmation" class="pass-input"
                                                     placeholder="Confirm Password" value="">
                                             </div>
-                                           
                                             <!-- Submit Button -->
-                                            <button type="submit" class="commentssubmit"><span>Register</span></button>
+                                            <button type="submit"
+                                                class="commentssubmit"><span>Register</span></button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-
                             <!--tab end -->
                         </div>
                         <!--tabs end -->

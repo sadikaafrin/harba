@@ -34,10 +34,24 @@
                     </div>
                     <div class="header-user-menu_wrap">
                         <ul>
-                            <li><a href="{{ route('dashboard') }}" class="hum_act">Dashboard</a></li>
-                            <li><a href="">Edit Profile</a></li>
-                            <li><a href="">Add Listing</a></li>
-                            <li><a href="">Properties</a></li>
+                            @if (Auth::check())
+                            @if (Auth::user()->role === 'admin')
+                                <!-- Links for admin role -->
+                                <li><a href="{{ route('dashboard') }}" class="hum_act">Dashboard</a></li>
+                                <li><a href="">Edit Profile</a></li>
+                                <li><a href="">Add Listing</a></li>
+                                <li><a href="">Properties</a></li>
+                            @elseif (Auth::user()->role === 'user')
+                                <!-- Links for user role -->
+                                <li><a href="{{ route('user-dashboard') }}" class="hum_act">Dashboard</a></li>
+                                <li><a href="">Edit Profile</a></li>
+                                <li><a href="">Add Listing</a></li>
+                                <li><a href="">Properties</a></li>
+                            @endif
+                        @else
+                            <!-- For guests (not logged in users) -->
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                        @endif
                         </ul>
                         <a href="{{ route('logout') }}" class="hum_log-out_btn"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

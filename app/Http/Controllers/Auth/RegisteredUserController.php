@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
 
 
 
-       
+
         // // Initialize $profile_picture as null by default
         $profile_picture = null;
 

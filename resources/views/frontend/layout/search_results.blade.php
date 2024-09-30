@@ -235,55 +235,55 @@
                 <p class="fw-bold">{{ $properties->count() }} properties found.</p>
                     <div class="listing-grid gisp">
                         @foreach ($properties as $property)
-                            <div class="listing-grid-item">
-                                <div class="listing-item cat-comercial cat-sale">
-                                    <div class="geodir-category-listing">
-                                        <div class="geodir-category-img">
-                                            <a href="{{ route('single-property', $property->id) }}" class="geodir-category-img_item">
-                                                <div class="bg" data-bg="{{ asset($property->images->first()->images) }}"></div>
-                                                <div class="overlay"></div>
-                                            </a>
-                                            <ul class="list-single-opt_header_cat">
-                                                <li><a href="#" class="cat-opt">Sale</a></li>
-                                                <li><a href="#" class="cat-opt">House</a></li>
+                        <div class="listing-grid-item">
+                            <div class="listing-item cat-comercial cat-sale">
+                                <div class="geodir-category-listing">
+                                    <div class="geodir-category-img">
+                                        <a href="{{ route('single-property', $property->id) }}" class="geodir-category-img_item">
+                                            <div class="bg" data-bg="{{ asset($property->images->first()->images) }}"></div>
+                                            <div class="overlay"></div>
+                                        </a>
+                                        <ul class="list-single-opt_header_cat">
+                                            <li><a href="#" class="cat-opt">Sale</a></li>
+                                            <li><a href="#" class="cat-opt">House</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="geodir-category-content">
+                                        <h3>
+                                            <a href="{{ route('single-property', $property->id) }}">{{ $property->property_title }}</a>
+                                        </h3>
+                                        <div class="geodir-category-content_price">
+                                            ${{ $property->price }}
+                                        </div>
+                                        <p>{{ $property->keyword }}</p>
+                                        <div class="geodir-category-content-details">
+                                            <ul>
+                                                <li>
+                                                    <i class="fa-light fa-bed"></i><span>{{ $property->bedroom }}</span>
+                                                </li>
+                                                <li>
+                                                    <i class="fa-light fa-bath"></i><span>{{ $property->bethrooms }}</span>
+                                                </li>
+                                                <li>
+                                                    <i class="fa-light fa-chart-area"></i><span>{{ $property->area }}</span>
+                                                </li>
                                             </ul>
                                         </div>
-                                        <div class="geodir-category-content">
-                                            <h3>
-                                                <a href="{{ route('single-property', $property->id) }}">{{ $property->property_title }}</a>
-                                            </h3>
-                                            <div class="geodir-category-content_price">
-                                                ${{ $property->price }}
-                                            </div>
-                                            <p>{{ $property->keyword }}</p>
-                                            <div class="geodir-category-content-details">
-                                                <ul>
-                                                    <li>
-                                                        <i class="fa-light fa-bed"></i><span>{{ $property->bedroom }}</span>
-                                                    </li>
-                                                    <li>
-                                                        <i class="fa-light fa-bath"></i><span>{{ $property->bethrooms }}</span>
-                                                    </li>
-                                                    <li>
-                                                        <i class="fa-light fa-chart-area"></i><span>{{ $property->area }}</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="geodir-category-footer">
-                                            <a href="agent-single.html" class="gcf-company">
-                                                <img src="{{ asset('frontend/images/announcer.jpg') }}" alt="" />
-                                                <span>By Niko Furingee</span>
-                                            </a>
-                                            <a href="{{ route('single-property', $property->id) }}" class="gid_link">
-                                                <span>View Details</span>
-                                                <i class="fa-solid fa-caret-right"></i>
-                                            </a>
-                                        </div>
+                                    </div>
+                                    <div class="geodir-category-footer">
+                                        <a href="agent-single.html" class="gcf-company">
+                                            <img src="{{ asset('frontend/images/announcer.jpg') }}" alt="" />
+                                            <span>By Niko Furingee</span>
+                                        </a>
+                                        <a href="{{ route('single-property', $property->id) }}" class="gid_link">
+                                            <span>View Details</span>
+                                            <i class="fa-solid fa-caret-right"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        </div>
+                    @endforeach
                     </div>
                 @endif
 

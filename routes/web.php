@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\Frontend\HomeController;
 use App\Http\Controllers\Web\Frontend\SinglePropertyController;
 use App\Http\Controllers\Web\Frontend\ListingController;
 use App\Http\Controllers\Web\Frontend\AddListingController;
+use App\Http\Controllers\Web\Frontend\UserDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,8 @@ Route::get('/listing', [ListingController::class, 'index'])->name('listing-searc
 
 Route::get('/add-listing', [AddListingController::class, 'AddListing'])->name('add-listing');
 Route::post('/add-listing', [AddListingController::class, 'store'])->name('add-listing.store');
+
+Route::get('/user-dashboard', [UserDashboardController::class, 'UserDashboardController'])->name('user-dashboard');
 
 
 require __DIR__.'/auth.php';

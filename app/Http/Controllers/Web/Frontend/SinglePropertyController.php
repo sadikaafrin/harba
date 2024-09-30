@@ -17,7 +17,9 @@ class SinglePropertyController extends Controller
     {
 
     // Get the search term from the request
-    $searchTerm = $request->input('property_title'); // Assuming the search input has this name
+    $searchTerm = $request->input('property_title');
+    $minPrice = $request->input('min_price');
+    $maxPrice = $request->input('max_price');
 
     $properties = Property::where(function ($query) use ($searchTerm) {
         // Search by property title and keyword
@@ -28,7 +30,11 @@ class SinglePropertyController extends Controller
         $query->orWhere('bedroom', 'LIKE', '%' . $searchTerm . '%')
               ->orWhere('bethrooms', 'LIKE', '%' . $searchTerm . '%')
               ->orWhere('area', 'LIKE', '%' . $searchTerm . '%'); // Allow for LIKE search on area
-    })->get();
+    })
+    ->when($minPrice && $maxPrice, function ($query) use ($minPrice, $maxPrice) {
+        $query->whereBetween('price', [$minPrice, $maxPrice]);
+    })
+    ->get();
 
     // Return a view with the search results
     return view('frontend.layout.search_results', compact('properties', 'searchTerm'));
