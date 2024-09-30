@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
+            $table->enum('status', ['approve', 'disapprove', 'pending', 'close'])->default('pending')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('category_id');
@@ -34,6 +35,7 @@ return new class extends Migration
             $table->string('accomudation');
             $table->string('website');
             $table->text('details');
+            $table->enum('feature', ['active', 'inactive'])->default('active');
             // $table->string('brochure_pdf');
             $table->timestamps();
         });

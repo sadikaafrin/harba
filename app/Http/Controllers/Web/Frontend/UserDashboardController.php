@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Models\UserDetails;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,12 @@ class UserDashboardController extends Controller
 {
     public function UserDashboardController()
     {
-        return view('frontend.layout.user-dashboard');
+       // Get the authenticated user's ID
+       $userId = Auth::id();
+
+       // Retrieve properties related to the authenticated user
+       $userProperties = Property::where('user_id', $userId)->get();
+        return view('frontend.layout.user-dashboard', compact('userProperties'));
     }
     public function EditProfile()
     {

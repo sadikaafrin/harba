@@ -13,6 +13,9 @@ class SinglePropertyController extends Controller
         $singleProperty = Property::with('images', 'amenities')->findOrFail($id);
         return view('frontend.layout.listing-single', compact('singleProperty'));
     }
+
+
+
     public function search(Request $request)
     {
 

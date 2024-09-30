@@ -96,6 +96,14 @@
             </a>
         </li>
 
+        <li class="menu-item {{ Request::routeIs('all-property.index') ? 'active' : ' ' }}">
+            <a href="{{ route('all-property.index') }}" class="menu-link">
+                <i class="menu-icon bi bi-houses-fill"></i>
+                <div data-i18n="Dashboards">All Property</div>
+
+            </a>
+        </li>
+
 
         {{-- <li
         class="menu-item {{ request()->routeIs('lending-page.*') || request()->routeIs('question.*') || request()->routeIs('work-section.*') ? 'open' : '' }}">

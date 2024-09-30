@@ -104,7 +104,7 @@
                                                     <div class="property-single-header-date author_avatar_ps">
                                                         <a href="author-single.html">
                                                             <img src="{{ asset('frontend/images/announcer.jpg') }}"
-                                                                alt="" /> {{ Auth::user()->name }}</a>
+                                                                alt="" /> {{ $singleProperty->user->name }}</a>
                                                     </div>
                                                     {{-- <div class="property-single-header-date">
                                                         <span>Developer Company:</span><a href="#">House

@@ -1,8 +1,7 @@
 @extends('backend.app')
 
 @push('style')
-<link rel="stylesheet" href="{{ asset('backend/vendor/libs/DataTable/css/jquery.dataTables.min.css') }}" />
-
+    <link rel="stylesheet" href="{{ asset('backend/vendor/libs/DataTable/css/jquery.dataTables.min.css') }}" />
 @endpush
 @section('content')
     <div class="content-wrapper">
@@ -40,65 +39,66 @@
     </div>
 @endsection
 @push('script')
-<script type="text/javascript" src="{{ asset('backend/vendor/libs/DataTable/js/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('backend/vendor/libs/DataTable/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/vendor/libs/DataTable/js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/vendor/libs/DataTable/js/dataTables.bootstrap4.min.js') }}">
+    </script>
 
-<script>
-  let dTable = $('#data-table').DataTable({
-    order: [],
-    lengthMenu: [
-        [25, 50, 100, 200, 500, -1],
-        [25, 50, 100, 200, 500, "All"]
-    ],
-    processing: true,
-    responsive: true,
-    serverSide: true,
+    <script>
+        let dTable = $('#data-table').DataTable({
+            order: [],
+            lengthMenu: [
+                [25, 50, 100, 200, 500, -1],
+                [25, 50, 100, 200, 500, "All"]
+            ],
+            processing: true,
+            responsive: true,
+            serverSide: true,
 
-    language: {
-        processing: `<div class="text-center">
+            language: {
+                processing: `<div class="text-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
             </div>`
-    },
+            },
 
-    scroller: {
-        loadingIndicator: false
-    },
-    pagingType: "full_numbers",
-    dom: "<'row justify-content-between table-topbar'<'col-md-2 col-sm-4 px-0'l><'col-md-2 col-sm-4 px-0'f>>tipr",
-    ajax: {
-        url: "{{ route('amenities.index') }}",
-        type: "get",
-    },
+            scroller: {
+                loadingIndicator: false
+            },
+            pagingType: "full_numbers",
+            dom: "<'row justify-content-between table-topbar'<'col-md-2 col-sm-4 px-0'l><'col-md-2 col-sm-4 px-0'f>>tipr",
+            ajax: {
+                url: "{{ route('amenities.index') }}",
+                type: "get",
+            },
 
-    columns: [{
-            data: 'DT_RowIndex',
-            name: 'DT_RowIndex',
-            orderable: false,
-            searchable: false
-        },
-        {
-            data: 'title',   // Should match the name used in the PHP method
-            name: 'title',
-            orderable: true,
-            searchable: true
-        },
-        {
-            data: 'status', // Should match the status used in the PHP method
-            name: 'status',
-            orderable: true,
-            searchable: true
-        },
-        {
-            data: 'action', // Should match the action used in the PHP method
-            name: 'action',
-            orderable: false,
-            searchable: false
-        },
-    ],
-});
-           delete Confirm
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'title', // Should match the name used in the PHP method
+                    name: 'title',
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: 'status', // Should match the status used in the PHP method
+                    name: 'status',
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: 'action', // Should match the action used in the PHP method
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ],
+        });
+        delete Confirm
         function showDeleteConfirm(id) {
             event.preventDefault();
             Swal.fire({
@@ -117,28 +117,7 @@
         }
 
         // Delete Button
-        function deleteItem(id) {
-            let url = '{{ route('amenities.destroy', ':id') }}';
-            let csrfToken = '{{ csrf_token() }}';
-            $.ajax({
-                type: "DELETE",
-                url: url.replace(':id', id),
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                success: function(resp) {
-                    $('#data-table').DataTable().ajax.reload();
-                    if (resp['t-success']) {
-                        toastr.success(resp.message);
-                    } else {
-                        toastr.error(resp.message);
-                    }
-                },
-                error: function(error) {
-                    toastr.error('An error occurred. Please try again.');
-                }
-            });
-        }
+       
 
          // Status Change Confirm Alert
          function   showStatusChangeAlert(id) {
@@ -183,7 +162,5 @@
                 } // Erro
             });
         }
-
-
-</script>
+    </script>
 @endpush

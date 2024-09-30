@@ -13,6 +13,7 @@ use App\Http\Controllers\Web\Backend\CMS\WorkSectionController;
 use App\Http\Controllers\Web\Backend\CMS\DiscoverController;
 use App\Http\Controllers\Web\Backend\CMS\ContactController;
 use App\Http\Controllers\Web\Backend\AllCityController;
+use App\Http\Controllers\Web\Backend\PropertyListController;
 use App\Models\Amenity;
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -75,6 +76,19 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/amenities/update/{id}', 'update')->name('amenities.update');
         Route::delete('/amenities/delete/{id}', 'destroy')->name('amenities.destroy');
         Route::get('/amenities/status/{id}',  'status')->name('amenities.status');
+    });
+
+       //! Route for Amenities
+       Route::controller(PropertyListController::class)->group(function () {
+        Route::get('/all-property', 'index')->name('all-property.index');
+        Route::get('/all-property/add', 'create')->name('all-property.create');
+        Route::post('/all-property/store', 'store')->name('all-property.store');
+        Route::get('/all-property/edit/{id}', 'edit')->name('all-property.edit');
+        Route::patch('all-property/feature',  'updateFeature')->name('all-roperty.feature');
+
+        Route::post('/all-property/update/{id}', 'update')->name('all-property.update');
+        Route::delete('/amenities/delete/{id}', 'destroy')->name('all-property.destroy');
+        Route::patch('/all-property/status/{id}',  'status')->name('all-property.status');
     });
 
 

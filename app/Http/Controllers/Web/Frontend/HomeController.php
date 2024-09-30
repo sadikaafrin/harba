@@ -10,7 +10,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-            $properties = Property::with(['images'])->get();
-         return view('frontend.layout.home', compact('properties'));
+        $properties = Property::with(['images'])
+            ->where('feature', 'active')
+            ->get();
+        return view('frontend.layout.home', compact('properties'));
     }
 }
