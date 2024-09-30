@@ -46,4 +46,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Property::class);
     }
+        /**
+     *  One to One Relations
+     *  user with user_prifile table
+     */
+    public function userDetail()
+    {
+        return $this->hasOne(UserDetail::class);
+    }
+
 }

@@ -46,6 +46,9 @@ Route::get('/add-listing', [AddListingController::class, 'AddListing'])->name('a
 Route::post('/add-listing', [AddListingController::class, 'store'])->name('add-listing.store');
 
 Route::get('/user-dashboard', [UserDashboardController::class, 'UserDashboardController'])->name('user-dashboard');
+Route::get('/edit-profile', [UserDashboardController::class, 'EditProfile'])->name('edit-profile');
+Route::post('/update-user-profile', [UserDashboardController::class, 'Update'])->name('update-user-profile');
+
 
 
 require __DIR__.'/auth.php';

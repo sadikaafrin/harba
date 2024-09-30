@@ -44,7 +44,7 @@
                             @elseif (Auth::user()->role === 'user')
                                 <!-- Links for user role -->
                                 <li><a href="{{ route('user-dashboard') }}" class="hum_act">Dashboard</a></li>
-                                <li><a href="">Edit Profile</a></li>
+                                <li><a href="{{ route('edit-profile') }}">Edit Profile</a></li>
                                 <li><a href="">Add Listing</a></li>
                                 <li><a href="">Properties</a></li>
                             @endif

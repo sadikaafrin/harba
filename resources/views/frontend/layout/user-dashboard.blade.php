@@ -32,7 +32,7 @@
                                         <li><a href="dashboard-listing.html"> Your Advertisements </a></li>
                                         <li><a href="dashboard-requests.html"> Your  Requests <span>6</span> </a></li>
                                         <li><a href="add-listing.html"> Add New Propperty </a></li>
-                                        <li><a href="dashboard-editprofile.html">  Edit profile</a></li>
+                                        <li><a href="{{ route('edit-profile') }}">  Edit profile</a></li>
                                     </ul>
                                     <a href="index.html" class="hum_log-out_btn"><i class="fa-light fa-power-off"></i> Log Out  </a>
                                 </div>
