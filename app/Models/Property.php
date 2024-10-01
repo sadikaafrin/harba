@@ -36,6 +36,11 @@ class Property extends Model
     }
 
 
+    // public function singleuser()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -63,5 +68,14 @@ class Property extends Model
     public function images()
     {
         return $this->hasMany(PropertyImage::class);
+    }
+
+    /**
+     * Define a relationship with the UserRequest model.
+     * Each property can have multiple requests from users.
+     */
+    public function requests()
+    {
+        return $this->hasMany(UserRequest::class);
     }
 }

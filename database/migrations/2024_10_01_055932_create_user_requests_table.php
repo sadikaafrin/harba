@@ -11,17 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_details', function (Blueprint $table) {
+        Schema::create('user_requests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('facebook')->nullable();
-            $table->string('tiktok')->nullable();
-            $table->string('instagram')->nullable();
-            $table->string('x_twitter')->nullable();
-            $table->string('youtube')->nullable();
-            $table->string('phone')->nullable();
+            $table->unsignedBigInteger('property_id');
+            $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
+            $table->string('name');
+            $table->string('phone');
+            $table->dateTime('date');
+
+            $table->string('time');
             $table->timestamps();
+            // Adding a unique constraint to prevent duplicate requests
+            // $table->unique(['user_id', 'property_id']);
         });
     }
 
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_details');
+        Schema::dropIfExists('user_requests');
     }
 };

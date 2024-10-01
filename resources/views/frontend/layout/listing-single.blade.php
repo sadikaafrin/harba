@@ -86,27 +86,27 @@
                                 <!--boxed-content-->
                                 <div class="boxed-content">
                                     <!--boxed-content-item-->
-                                        <div class="boxed-content-item">
-                                            <div class="hero-section-title_container hsc_flat">
-                                                <div class="hero-section-title">
-                                                    <h2>{{ $singleProperty->property_title }}</h2>
-                                                    {{-- <h4>
+                                    <div class="boxed-content-item">
+                                        <div class="hero-section-title_container hsc_flat">
+                                            <div class="hero-section-title">
+                                                <h2>{{ $singleProperty->property_title }}</h2>
+                                                {{-- <h4>
                                                         <i class="fa-solid fa-location-dot"></i>
                                                         <span>70 Bright St New York, USA</span>
                                                     </h4> --}}
-                                                    <div class="property-single-header-price">
-                                                        <strong>Price:</strong>
-                                                        <span class="pshp_item"><span>$</span>{{ $singleProperty->price}}
-                                                        </span>
-                                                    </div>
+                                                <div class="property-single-header-price">
+                                                    <strong>Price:</strong>
+                                                    <span class="pshp_item"><span>$</span>{{ $singleProperty->price }}
+                                                    </span>
                                                 </div>
-                                                <div class="hero-section-opt">
-                                                    <div class="property-single-header-date author_avatar_ps">
-                                                        <a href="author-single.html">
-                                                            <img src="{{ asset('frontend/images/announcer.jpg') }}"
-                                                                alt="" /> {{ $singleProperty->user->name }}</a>
-                                                    </div>
-                                                    {{-- <div class="property-single-header-date">
+                                            </div>
+                                            <div class="hero-section-opt">
+                                                <div class="property-single-header-date author_avatar_ps">
+                                                    <a href="author-single.html">
+                                                        <img src="{{ asset('frontend/images/announcer.jpg') }}"
+                                                            alt="" />{{ $singleProperty->user->name }}</a>
+                                                </div>
+                                                {{-- <div class="property-single-header-date">
                                                         <span>Developer Company:</span><a href="#">House
                                                             Construction</a>
                                                     </div>
@@ -119,9 +119,9 @@
                                                             <span> Viewed - <strong>335</strong></span>
                                                         </div>
                                                     </div> --}}
-                                                </div>
                                             </div>
                                         </div>
+                                    </div>
 
                                     <!--boxed-content-item end-->
                                 </div>
@@ -178,7 +178,8 @@
                                                         {{-- <a href="#" download><i class="fa-light fa-file-pdf"></i>
                                                             Download Brochure
                                                         </a> --}}
-                                                        <a href="{{ $singleProperty->website }}" target="_blank">Visit Website</a>
+                                                        <a href="{{ $singleProperty->website }}" target="_blank">Visit
+                                                            Website</a>
                                                     </li>
                                                     {{-- <li>
                                                         <a href="#"><i class="fa-light fa-layer-group"></i>
@@ -205,9 +206,9 @@
                                             <div class="pp-single-features">
                                                 <ul>
                                                     @foreach ($singleProperty->amenities as $amenity)
-                                                    <li>
-                                                        {{ $amenity->title }}
-                                                    </li>
+                                                        <li>
+                                                            {{ $amenity->title }}
+                                                        </li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -236,7 +237,7 @@
                                     </div>
                                 </div> --}}
                                 <!--banner-widget-wrap end-->
-                                {{-- <div class="accordion">
+                                <div class="accordion">
                                     <a class="toggle act-accordion" href="#">
                                         Details option <i class="fa-solid fa-caret-down"></i></a>
                                     <div class="accordion-inner visible">
@@ -279,7 +280,7 @@
                                             facilisis massa, a consequat purus viverra.
                                         </p>
                                     </div>
-                                </div> --}}
+                                </div>
                                 <!--boxed-content-->
                                 {{-- <div class="boxed-content">
                                     <!--boxed-content-title-->
@@ -482,47 +483,49 @@
                                                     </p>
                                                 </div>
                                                 <div class="custom-form" id="single_cf">
-                                                    <form method="post" name="contact-property-form">
+                                                    <form method="POST" action="{{ route('user-request') }}" name="contact-property-form">
+                                                        @csrf <!-- Add CSRF token for security -->
+
+                                                        <!-- Pass the user ID (assuming the user is logged in) -->
+                                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+
+                                                        <!-- Pass the property ID -->
+                                                        <input type="hidden" name="property_id" value="{{ $singleProperty->id }}">
+
+                                                        <!-- Input field for Name -->
                                                         <div class="cs-intputwrap">
                                                             <i class="fa-light fa-user"></i>
-                                                            <input name="name" type="text" placeholder="Your name"
-                                                                onClick="this.select()" value="" />
+                                                            <input name="name" type="text" placeholder="Your name" onClick="this.select()" />
                                                         </div>
+
+                                                        <!-- Input field for Phone -->
                                                         <div class="cs-intputwrap">
                                                             <i class="fa-light fa-phone-office"></i>
-                                                            <input name="phone" type="text" placeholder="Your Phone"
-                                                                onClick="this.select()" value="" />
+                                                            <input name="phone" type="text" placeholder="Your Phone" onClick="this.select()" />
                                                         </div>
+
+                                                        <!-- Date Input Field -->
                                                         <div class="row">
                                                             <div class="col-sm-6">
                                                                 <div class="cs-intputwrap">
                                                                     <i class="fa-light fa-calendar"></i>
                                                                     <div class="date-container">
-                                                                        <input type="text" placeholder="Date"
-                                                                            id="res_date" name="datepicker-here"
-                                                                            value="" />
+                                                                        <input type="text" placeholder="Date" id="res_date" name="date" />
                                                                     </div>
                                                                 </div>
                                                             </div>
+
+                                                            <!-- Time Input Field -->
                                                             <div class="col-sm-6">
                                                                 <div class="cs-intputwrap">
                                                                     <i class="fa-light fa-calendar"></i>
-                                                                    <select data-placeholder="Time"
-                                                                        class="chosen-select on-radius no-search-select">
-                                                                        <option>9 AM</option>
-                                                                        <option>10 AM</option>
-                                                                        <option>11 AM</option>
-                                                                        <option>12 AM</option>
-                                                                        <option>13 PM</option>
-                                                                        <option>14 PM</option>
-                                                                        <option>15 PM</option>
-                                                                        <option>16 PM</option>
-                                                                    </select>
+                                                                    <input type="text" placeholder="Time" name="time" />
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <button onclick="window.location.href='listing.html'"
-                                                            class="commentssubmit commentssubmit_fw">
+
+                                                        <!-- Submit Button -->
+                                                        <button type="submit" class="commentssubmit commentssubmit_fw">
                                                             Send Request
                                                         </button>
                                                     </form>
@@ -853,3 +856,30 @@
         <!-- container end-->
     </div>
 @endsection
+
+@push('script')
+<!-- Include Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+<!-- Include Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Check for success message
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @endif
+
+        // Check for error message
+        @if (session('error'))
+            toastr.error("{{ session('error') }}");
+        @endif
+
+        // Check for validation errors
+        @if ($errors->any())
+            toastr.error("{{ implode('', $errors->all(':message')) }}");
+        @endif
+    });
+</script>
+@endpush

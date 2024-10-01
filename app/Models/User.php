@@ -46,7 +46,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Property::class);
     }
-        /**
+    /**
      *  One to One Relations
      *  user with user_prifile table
      */
@@ -54,5 +54,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserDetail::class);
     }
-
+    /*
+ * This function defines a one-to-many relationship
+ * indicating that a user can have multiple requests.
+ */
+    public function requests()
+    {
+        return $this->hasMany(UserRequest::class);
+    }
 }

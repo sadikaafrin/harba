@@ -7,6 +7,9 @@ use App\Http\Controllers\Web\Frontend\SinglePropertyController;
 use App\Http\Controllers\Web\Frontend\ListingController;
 use App\Http\Controllers\Web\Frontend\AddListingController;
 use App\Http\Controllers\Web\Frontend\UserDashboardController;
+use App\Http\Controllers\Web\Frontend\UserAdvertisement;
+use App\Http\Controllers\Web\Frontend\UserRequestController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +41,7 @@ Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
 
 Route::get('/listing-single/{id}', [SinglePropertyController::class, 'index'])->name('single-property');
+Route::post('/user-request', [SinglePropertyController::class,'store'])->name('user-request');
 Route::get('/search-properties', [SinglePropertyController::class, 'search'])->name('properties.search');
 
 Route::get('/listing', [ListingController::class, 'index'])->name('listing-search');
@@ -47,8 +51,15 @@ Route::post('/add-listing', [AddListingController::class, 'store'])->name('add-l
 
 Route::get('/user-dashboard', [UserDashboardController::class, 'UserDashboardController'])->name('user-dashboard');
 Route::get('/edit-profile', [UserDashboardController::class, 'EditProfile'])->name('edit-profile');
+
+Route::post('/profile-update', [UserDashboardController::class, 'profileUpdate'])->name('profile-update');
+
+Route::post('/change-password', [UserDashboardController::class, 'changePassword'])->name('change-password');
 Route::post('/update-user-profile', [UserDashboardController::class, 'Update'])->name('update-user-profile');
 
+//!User Advertisement
+Route::get('/user-advertisement', [UserAdvertisement::class, 'advertisemnent'])->name('user-advertisement');
 
-
+//!user Request
+// Route::post('/user-request', [UserRequestController::class,'store'])->name('user-request');
 require __DIR__.'/auth.php';
