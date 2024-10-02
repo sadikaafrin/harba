@@ -22,7 +22,7 @@
                             <div class="dashboard-title">
                                 <div class="dashboard-title-item"><span>Edit your profile</span></div>
                                 <!--Tariff Plan menu-->
-                                <div class="tfp-det-container">
+                                {{-- <div class="tfp-det-container">
                                     <div class="db-date"><i class="fa-regular fa-calendar"></i><strong></strong></div>
                                     <div class="tfp-btn"><span>Your Tariff Plan : </span> <strong>Extended</strong></div>
                                     <div class="tfp-det">
@@ -31,7 +31,7 @@
                                         <a href="#" class="tfp-det-btn color-bg">View Details <i
                                                 class="fa-solid fa-caret-right"></i></a>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <!--Tariff Plan menu end-->
                             </div>
                             <div class="db-container">

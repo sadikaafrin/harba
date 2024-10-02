@@ -3,9 +3,9 @@
           <div class="user-dasboard-menu_wrap">
               <div class="user-dasboard-menu-header">
                   <div class="user-dasboard-menu_header-avatar">
-                      <img src="images/avatar/1.jpg" alt="">
+                      <img src="{{ Auth::user()->profile_picture ? asset(Auth::user()->profile_picture) : asset('frontend/images/announcer.jpg') }}" alt="">
                       <span>Welcome : <strong>{{ Auth::user()->name  }}</strong></span>
-                      <a href="dashboard-editprofile.html" class="usmha_edit tolt" data-microtip-position="left"
+                      <a href="{{ route('edit-profile') }}" class="usmha_edit tolt" data-microtip-position="left"
                           data-tooltip="Edit Profile"><i class="fa-light fa-user-pen"></i></a>
                       <div class="db-menu_modile_btn"><strong>Menu</strong><i class="fa-regular fa-bars"></i></div>
                   </div>

@@ -23,14 +23,14 @@
                         <div class="dashboard-title">
                             <div class="dashboard-title-item"><span>  Your Advertisements </span></div>
                             <!--Tariff Plan menu-->
-                            <div class="tfp-det-container">
+                            {{-- <div class="tfp-det-container">
                                 <div class="db-date"><i class="fa-regular fa-calendar"></i><strong></strong></div>
                                 <div class="tfp-btn"><span>Your Tariff Plan : </span> <strong>Extended</strong></div>
                                 <div class="tfp-det">
                                     <p>You Are on <a href="#">Extended</a> . Use link bellow to view details or upgrade. </p>
                                     <a href="#" class="tfp-det-btn color-bg">View Details <i class="fa-solid fa-caret-right"></i></a>
                                 </div>
-                            </div>
+                            </div> --}}
                             <!--Tariff Plan menu end-->
                         </div>
                         <div class="db-container">
@@ -72,9 +72,9 @@
                                                 </a>
                                         </div>
                                         <div class="dashboard-listings-item_content">
-                                            <h4><a href="listing-single.html">{{ $data->property_title }}</a></h4>
+                                            <h4><a href="{{ route('single-property', $data->id) }}">{{ $data->property_title }}</a></h4>
                                             <div class="geodir-category-location">
-                                                <a href="#"> <span>{{ $data->address }}</span></a>
+                                                <a href="{{ route('single-property', $data->id) }}"> <span>{{ $data->address }}</span></a>
                                             </div>
                                             {{-- <div class="dashboard-listings-item_opt">
                                                 <span class="viewed-counter"><i class="fas fa-eye"></i> Viewed -  224 </span>
