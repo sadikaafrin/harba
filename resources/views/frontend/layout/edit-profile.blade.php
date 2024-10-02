@@ -15,35 +15,7 @@
                 <div class="boxed-container">
                     <div class="row">
                         <!-- user-dasboard-menu_wrap -->
-                        <div class="col-lg-3">
-                            <div class="boxed-content btf_init">
-                                <div class="user-dasboard-menu_wrap">
-                                    <div class="user-dasboard-menu-header">
-                                        <div class="user-dasboard-menu_header-avatar">
-                                            <img src="images/avatar/1.jpg" alt="">
-                                            <span>Welcome : <strong> Alisa</strong></span>
-                                            <a href="dashboard-editprofile.html" class="usmha_edit tolt"
-                                                data-microtip-position="left" data-tooltip="Edit Profile"><i
-                                                    class="fa-light fa-user-pen"></i></a>
-                                            <div class="db-menu_modile_btn"><strong>Menu</strong><i
-                                                    class="fa-regular fa-bars"></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="user-dasboard-menu faq-nav ">
-                                        <ul>
-                                            <li><a href="dashboard.html"> Dashboard</a></li>
-                                            <li><a href="dashboard-listing.html"> Your Advertisements </a></li>
-                                            <li><a href="dashboard-requests.html"> Your Requests <span>6</span> </a></li>
-                                            <li><a href="add-listing.html"> Add New Propperty </a></li>
-                                            <li><a href="dashboard-editprofile.html" class="act-scrlink"> Edit profile</a>
-                                            </li>
-                                        </ul>
-                                        <a href="index.html" class="hum_log-out_btn"><i class="fa-light fa-power-off"></i>
-                                            Log Out </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('frontend.layout.dashboard')
                         <!-- user-dasboard-menu_wrap end-->
                         <!-- pricing-column -->
                         <div class="col-lg-9">
@@ -98,55 +70,21 @@
                                     <div class="col-lg-6">
                                         <div class="edit-profile-photo">
                                             <div class="edit-profile-photo_cur">
-                                                <img src="images/avatar/1.jpg" alt="">
+                                                <img id="currentAvatar" src="{{ asset(auth()->user()->profile_picture) }}"
+                                                    alt="Profile Photo">
                                             </div>
                                             <div class="change-photo-btn">
                                                 <div class="photoUpload">
-                                                    <span> Upload New Photo</span>
-                                                    <input type="file" class="upload">
+                                                    <span>Upload New Photo</span>
+                                                    <input type="file" class="upload" id="avatarInput" accept="image/*">
                                                 </div>
                                             </div>
-                                            <div class="abs_bg"></div>
-                                            <div class="remove_phav tolt" data-microtip-position="left"
-                                                data-tooltip="Remove Photo"><i class="fa-light fa-trash"></i></div>
+                                            {{-- <div class="abs_bg"></div> --}}
+                                            {{-- <div class="remove_phav tolt" data-microtip-position="left"
+                                                data-tooltip="Remove Photo">
+                                                <i class="fa-light fa-trash"></i>
+                                            </div> --}}
                                         </div>
-                                        <!--dasboard-content-item-->
-                                        {{-- <div class="dasboard-content-item">
-                                        <div class="dashboard-widget-title-single">Your Socials Links</div>
-                                        <div class="custom-form">
-                                            <!-- listsearch-input-item -->
-                                            <div class="cs-intputwrap">
-                                                <i class="fa-brands fa-facebook-f"></i>
-                                                <input type="text"   placeholder="Facebook" value="">
-                                            </div>
-                                            <!-- listsearch-input-item -->
-                                            <!-- listsearch-input-item -->
-                                            <div class="cs-intputwrap">
-                                                <i class="fa-brands fa-tiktok"></i>
-                                                <input type="text"   placeholder="TikTok" value="">
-                                            </div>
-                                            <!-- listsearch-input-item -->
-                                            <!-- listsearch-input-item -->
-                                            <div class="cs-intputwrap">
-                                                <i class="fa-brands fa-instagram"></i>
-                                                <input type="text"   placeholder="Instagram" value="">
-                                            </div>
-                                            <!-- listsearch-input-item -->
-                                            <!-- listsearch-input-item -->
-                                            <div class="cs-intputwrap">
-                                                <i class="fa-brands fa-x-twitter"></i>
-                                                <input type="text"   placeholder="X-Twitter" value="">
-                                            </div>
-                                            <!-- listsearch-input-item -->
-                                            <!-- listsearch-input-item -->
-                                            <div class="cs-intputwrap">
-                                                <i class="fa-brands fa-youtube"></i>
-                                                <input type="text"   placeholder="Youtube" value="">
-                                            </div>
-                                            <!-- listsearch-input-item -->
-                                        </div>
-                                        <button class="commentssubmit">Update</button>
-                                    </div> --}}
                                         <form method="POST" action="{{ route('update-user-profile') }}">
                                             @csrf
                                             <div class="dashboard-content-item">
@@ -275,6 +213,13 @@
 
     <script>
         $(document).ready(function() {
+            // Setup CSRF token for all AJAX requests
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             // Check for success message
             @if (session('success'))
                 toastr.success("{{ session('success') }}");
@@ -284,81 +229,73 @@
             @if ($errors->any())
                 toastr.error("{{ implode('', $errors->all(':message')) }}");
             @endif
-        });
-    </script>
-    <script>
-        $('#updatePasswordBtn').on('click', function(e) {
-            e.preventDefault();
 
-            $.ajax({
-                url: '{{ route('change-password') }}',
-                type: 'POST',
-                data: {
-                    current_password: $('#current_password').val(),
-                    new_password: $('#new_password').val(),
-                    new_password_confirmation: $('#new_password_confirmation').val(),
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    if (response.status === 'success') {
-                        toastr.success(response.message);
+            // Update personal info
+            $('#updatePersonalInfo').click(function(e) {
+                e.preventDefault();
 
-                        // Clear the form fields after a successful update
-                        $('#current_password').val('');
-                        $('#new_password').val('');
-                        $('#new_password_confirmation').val('');
-                    } else {
-                        toastr.error(response.message);
+                var name = $('#name').val();
+                var email = $('#email').val();
+                var phone = $('#phone').val();
+
+                $.ajax({
+                    url: "{{ route('profile-update') }}",
+                    type: 'POST',
+                    data: {
+                        name: name,
+                        email: email,
+                        phone: phone
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                        } else {
+                            toastr.error(response.message ||
+                                'Failed to update personal information.');
+                        }
+                    },
+                    error: function(xhr) {
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                            if (errors.name) {
+                                toastr.error(errors.name[0]);
+                            }
+                            if (errors.email) {
+                                toastr.error(errors.email[0]);
+                            }
+                            if (errors.phone) {
+                                toastr.error(errors.phone[0]);
+                            }
+                        } else {
+                            toastr.error('An error occurred. Please try again.');
+                        }
                     }
-                },
-                error: function(xhr) {
-                    toastr.error('An error occurred while updating the password');
-                }
+                });
+            });
+
+            // Change avatar image
+            $('#avatarInput').change(function(event) {
+                var file = this.files[0];
+                var formData = new FormData();
+                formData.append('profile_picture', file);
+
+                $.ajax({
+                    url: "{{ route('profile.updatePicture') }}",
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        // Update the avatar image
+                        $('#currentAvatar').attr('src', response.avatar);
+                        toastr.success('Avatar updated successfully!');
+                    },
+                    error: function(xhr) {
+                        toastr.error('Failed to update avatar: ' + (xhr.responseJSON.message ||
+                            'Unknown error')); // Updated for better error handling
+                    }
+                });
             });
         });
-
-        $(document).ready(function() {
-    $('#updatePersonalInfo').click(function(e) {
-        e.preventDefault();
-
-        var name = $('#name').val();
-        var email = $('#email').val();
-        var phone = $('#phone').val();
-
-        $.ajax({
-            url: "{{ route('profile-update') }}", // The route for the update
-            type: 'POST',
-            data: {
-                _token: "{{ csrf_token() }}", // Laravel's CSRF protection
-                name: name,
-                email: email,
-                phone: phone
-            },
-            success: function(response) {
-                if (response.success) {
-                    toastr.success(response.message); // Show success message
-                } else {
-                    toastr.error(response.message || 'Failed to update personal information.');
-                }
-            },
-            error: function(xhr) {
-                var errors = xhr.responseJSON.errors;
-                if (errors) {
-                    if (errors.name) {
-                        toastr.error(errors.name[0]);
-                    }
-                    if (errors.email) {
-                        toastr.error(errors.email[0]);
-                    }
-                    if (errors.phone) {
-                        toastr.error(errors.phone[0]);
-                    }
-                } else {
-                    toastr.error('An error occurred. Please try again.');
-                }
-            }
-        });
-    });
-});
     </script>
 @endpush

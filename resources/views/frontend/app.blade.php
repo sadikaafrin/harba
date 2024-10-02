@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>Harba-Dz</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!--=============== css  ===============-->
 
     @include('frontend.partials.style')

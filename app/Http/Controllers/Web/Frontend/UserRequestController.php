@@ -3,55 +3,52 @@
 namespace App\Http\Controllers\Web\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\UserRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
-use Illuminate\Database\QueryException;
-
+use App\Models\UserRequest;
 
 class UserRequestController extends Controller
 {
     public function store(Request $request)
     {
-        // Validate the incoming request
+        // Validate the incoming request data
         $validated = $request->validate([
             'property_id' => 'required|exists:properties,id',
             'name' => 'required|string',
             'phone' => 'nullable|string',
             'date' => 'nullable|date',
-            'time' => '|string',
+            'time' => 'nullable|string',
         ]);
 
+        // Get the authenticated user
         $user = auth()->user();
 
-        $dataExists = UserRequest::where('user_id', $user->id)->where('property_id', $request->property_id)->first();
+        // Check if the request already exists for the user and property
+        $dataExists = UserRequest::where('user_id', $user->id)
+            ->where('property_id', $request->property_id)
+            ->first();
 
-        // dd($dataExists);
-        if($dataExists){
+        // If the request already exists, return an error message
+        if ($dataExists) {
             return redirect()->back()->with('error', 'This request has already been made');
         }
 
+        // Add the user_id to the validated data
+        $validated['user_id'] = $user->id;
 
-        // Check if the user_request already exists
-        // if (UserRequest::where('user_id', $request->user_id)
-        //     ->where('property_id', $request->property_id)
-        //     ->exists()
-        // ) {
-        //     return response()->json(['error' => 'This request has already been made'], 409);
-        // }
+        // Create a new UserRequest
+        UserRequest::create($validated);
 
-        try {
-            // Insert the new request
-            UserRequest::create($validated);
+        // Optionally, you can redirect or return a success message
+        return redirect()->back()->with('success', 'Request sent successfully!');
+    }
+    public function search(Request $request)
+    {
+        // Get the search term from the input field 'search'
+        $searchTerm = $request->input('search');
 
-            return response()->json(['message' => 'Request created successfully'], 201);
-        } catch (QueryException $e) {
-            // Handle other potential query exceptions
-            return response()->json(['error' => 'Database error'], 500);
-        } catch (\Exception $e) {
-            // Handle any other exceptions
-            return response()->json(['error' => 'An error occurred'], 500);
-        }
+        // Query the user_requests table based on the 'name' column
+        $properties = UserRequest::where('name', 'LIKE', '%' . $searchTerm . '%')->get();
+
+        return view('frontend.layout.user-search-request.index', compact('properties'));
     }
 }

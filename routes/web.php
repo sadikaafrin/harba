@@ -41,7 +41,7 @@ Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
 
 Route::get('/listing-single/{id}', [SinglePropertyController::class, 'index'])->name('single-property');
-Route::post('/user-request', [SinglePropertyController::class,'store'])->name('user-request');
+// Route::post('/user-request', [SinglePropertyController::class,'store'])->name('user-request');
 Route::get('/search-properties', [SinglePropertyController::class, 'search'])->name('properties.search');
 
 Route::get('/listing', [ListingController::class, 'index'])->name('listing-search');
@@ -50,7 +50,14 @@ Route::get('/add-listing', [AddListingController::class, 'AddListing'])->name('a
 Route::post('/add-listing', [AddListingController::class, 'store'])->name('add-listing.store');
 
 Route::get('/user-dashboard', [UserDashboardController::class, 'UserDashboardController'])->name('user-dashboard');
+
+Route::get('/user-all-requests',[UserDashboardController::class, 'AllRequest'])->name('user-all-requests');
 Route::get('/edit-profile', [UserDashboardController::class, 'EditProfile'])->name('edit-profile');
+
+
+
+Route::post('/profile/update-picture', [UserDashboardController::class, 'updatePicture'])->name('profile.updatePicture');
+
 
 Route::post('/profile-update', [UserDashboardController::class, 'profileUpdate'])->name('profile-update');
 
@@ -61,5 +68,7 @@ Route::post('/update-user-profile', [UserDashboardController::class, 'Update'])-
 Route::get('/user-advertisement', [UserAdvertisement::class, 'advertisemnent'])->name('user-advertisement');
 
 //!user Request
-// Route::post('/user-request', [UserRequestController::class,'store'])->name('user-request');
+Route::post('/user-request', [UserRequestController::class,'store'])->name('user-request');
+Route::get('/user-request-search', [UserRequestController::class,'search'])->name('user-request.search');
+
 require __DIR__.'/auth.php';

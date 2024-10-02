@@ -19,7 +19,6 @@ function uploadImage($file, $folder, $name): string
 }
 
 
-
 /**
  * Deletes the specified image file if it exists.
  *

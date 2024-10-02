@@ -20,11 +20,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->dateTime('date');
-
             $table->string('time');
             $table->timestamps();
-            // Adding a unique constraint to prevent duplicate requests
-            // $table->unique(['user_id', 'property_id']);
+
         });
     }
 

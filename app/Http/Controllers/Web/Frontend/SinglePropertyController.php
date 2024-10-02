@@ -44,37 +44,37 @@ class SinglePropertyController extends Controller
         return view('frontend.layout.search_results', compact('properties', 'searchTerm'));
     }
 
-    public function store(Request $request)
-    {
-        // Validate the incoming request data
-        $validated = $request->validate([
-            'property_id' => 'required|exists:properties,id',
-            'name' => 'required|string',
-            'phone' => 'nullable|string',
-            'date' => 'nullable|date',
-            'time' => 'nullable|string',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     // Validate the incoming request data
+    //     $validated = $request->validate([
+    //         'property_id' => 'required|exists:properties,id',
+    //         'name' => 'required|string',
+    //         'phone' => 'nullable|string',
+    //         'date' => 'nullable|date',
+    //         'time' => 'nullable|string',
+    //     ]);
 
-        // Get the authenticated user
-        $user = auth()->user();
+    //     // Get the authenticated user
+    //     $user = auth()->user();
 
-        // Check if the request already exists for the user and property
-        $dataExists = UserRequest::where('user_id', $user->id)
-            ->where('property_id', $request->property_id)
-            ->first();
+    //     // Check if the request already exists for the user and property
+    //     $dataExists = UserRequest::where('user_id', $user->id)
+    //         ->where('property_id', $request->property_id)
+    //         ->first();
 
-        // If the request already exists, return an error message
-        if ($dataExists) {
-            return redirect()->back()->with('error', 'This request has already been made');
-        }
+    //     // If the request already exists, return an error message
+    //     if ($dataExists) {
+    //         return redirect()->back()->with('error', 'This request has already been made');
+    //     }
 
-        // Add the user_id to the validated data
-        $validated['user_id'] = $user->id;
+    //     // Add the user_id to the validated data
+    //     $validated['user_id'] = $user->id;
 
-        // Create a new UserRequest
-        UserRequest::create($validated);
+    //     // Create a new UserRequest
+    //     UserRequest::create($validated);
 
-        // Optionally, you can redirect or return a success message
-        return redirect()->back()->with('success', 'Request sent successfully!');
-    }
+    //     // Optionally, you can redirect or return a success message
+    //     return redirect()->back()->with('success', 'Request sent successfully!');
+    // }
 }

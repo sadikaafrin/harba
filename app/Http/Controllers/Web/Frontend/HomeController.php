@@ -12,7 +12,7 @@ class HomeController extends Controller
     {
         $properties = Property::with(['images'])
             ->where('feature', 'active')
-            ->get();
+            ->paginate(2);
         return view('frontend.layout.home', compact('properties'));
     }
 }

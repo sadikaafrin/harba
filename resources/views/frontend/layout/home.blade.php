@@ -293,10 +293,13 @@
                             </div>
                         @endforeach
 
+
+
                         <!-- listing-grid-item end-->
 
                         <!-- listing-grid-item end-->
                     </div>
+                    {{ $properties->links('vendor.pagination.default') }}
                     <!-- listing-grid end-->
                     <!-- <a href="listing.html" class="commentssubmit csb-no-align"
                     >View All Properties <i class="fa-solid fa-caret-right"></i

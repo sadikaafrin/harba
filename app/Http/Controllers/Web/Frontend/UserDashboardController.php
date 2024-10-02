@@ -7,6 +7,7 @@ use App\Models\Property;
 use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use App\Models\UserDetails;
+use App\Models\UserRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -20,11 +21,42 @@ class UserDashboardController extends Controller
 
         // Retrieve properties related to the authenticated user
         $userProperties = Property::where('user_id', $userId)->get();
+
         return view('frontend.layout.user-dashboard', compact('userProperties'));
     }
     public function EditProfile()
     {
         return view('frontend.layout.edit-profile');
+    }
+
+    public function updatePicture(Request $request)
+    {
+        // Validate the uploaded file
+        $request->validate([
+            'profile_picture' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Make it nullable
+        ]);
+
+        $user = Auth::user(); // Get the authenticated user
+
+        // Check if a new file is present in the request
+        if ($request->hasFile('profile_picture')) {
+            // If the user already has a profile picture, delete the old one
+            if ($user->profile_picture) {
+                deleteImage($user->profile_picture);
+            }
+
+            // Upload the new profile picture
+            $imagePath = uploadImage($request->file('profile_picture'), 'profile_picture', $user->name);
+            $user->profile_picture = $imagePath; // Update the profile_picture field
+        }
+
+        // Save the user record (only the profile_picture field will change if a new image was uploaded)
+        $user->save();
+
+        return response()->json([
+            'success' => 'Profile picture updated successfully.',
+            'avatar' => asset($user->profile_picture) // Return the new avatar path
+        ]);
     }
 
     public function changePassword(Request $request)
@@ -120,5 +152,12 @@ class UserDashboardController extends Controller
 
         // Return a success response for the AJAX call
         return response()->json(['success' => true, 'message' => 'Information successfully updated']);
+    }
+
+    public function AllRequest()
+    {
+        $user = auth()->user();
+        $allRequest = UserRequest::where('user_id', $user->id)->with('property')->paginate(5);
+        return view('frontend.layout.all-requests', compact('allRequest'));
     }
 }
