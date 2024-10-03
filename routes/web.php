@@ -9,6 +9,7 @@ use App\Http\Controllers\Web\Frontend\AddListingController;
 use App\Http\Controllers\Web\Frontend\UserDashboardController;
 use App\Http\Controllers\Web\Frontend\UserAdvertisement;
 use App\Http\Controllers\Web\Frontend\UserRequestController;
+use App\Http\Controllers\Web\Backend\AppartmentTypeController;
 
 
 /*
@@ -38,7 +39,7 @@ use App\Http\Controllers\Web\Frontend\UserRequestController;
 
 //!Route for HomeController
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
-
+Route::get('/appartment-type/{type}', [HomeController::class, 'filterByAppartmentType'])->name('appartment.type');
 
 Route::get('/listing-single/{id}', [SinglePropertyController::class, 'index'])->name('single-property');
 // Route::post('/user-request', [SinglePropertyController::class,'store'])->name('user-request');

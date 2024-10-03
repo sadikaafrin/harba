@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AppartmentType;
 use App\Models\Property;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,15 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $properties = Property::with(['images'])
+        $properties = Property::with(['appartmentType', 'images'])
             ->where('feature', 'active')
-            ->paginate(2);
-        return view('frontend.layout.home', compact('properties'));
+            ->get();
+
+            $appartmentTypes = AppartmentType::all();
+
+
+        return view('frontend.layout.home', compact('properties', 'appartmentTypes'));
     }
+
+
 }

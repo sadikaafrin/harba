@@ -53,7 +53,7 @@ class Property extends Model
 
     public function appartmentType()
     {
-        return $this->belongsTo(AppartmentType::class);
+        return $this->belongsTo(AppartmentType::class, 'appartment_type_id');
     }
 
     public function city()

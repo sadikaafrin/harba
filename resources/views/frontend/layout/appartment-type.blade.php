@@ -110,6 +110,14 @@
                                             <div class="row">
                                                 <!-- listsearch-input-item -->
                                                 <div class="col-lg-12">
+                                                    <div class="cs-intputwrap">
+                                                        <i class="fa-light fa-location-dot"></i>
+                                                        <input type="text" placeholder="Where to go" value="" />
+                                                    </div>
+                                                </div>
+                                                <!-- listsearch-input-item -->
+                                                <!-- listsearch-input-item -->
+                                                <div class="col-lg-12">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="cs-intputwrap">
@@ -208,113 +216,53 @@
             <div class="main-content ms_vir_height" id="sec1">
                 <!--boxed-container-->
                 <div class="boxed-container">
-                    <div class="listing-grid_heroheader">
-                        <h3>Browse Hot Properties</h3>
+                    <h1>{{ $appartmentType->name }} Properties</h1>
 
-                        <div class="gallery-filters">
-                            <a href="#" class="gallery-filter gallery-filter-active" data-filter="*">
-                                All Properties
-                            </a>
-
-
-
-                            @foreach ($appartmentTypes as $type)
-                                @php
-                                    // Generate dynamic filter class for each type
-                                    $filterClass = 'cat-' . strtolower(str_replace(' ', '-', $type->name));
-                                @endphp
-                                <a href="#" class="gallery-filter"
-                                    data-filter=".{{ $filterClass }}">{{ $type->name ?? '' }}</a>
-                            @endforeach
-                        </div>
-                        {{--
-                        <div class="gallery-filters">
-                            <a href="#" class="gallery-filter gallery-filter-active" data-filter="*">
-                                All Properties</a>
-                            <a href="#" class="gallery-filter" data-filter=".cat-sale">Sale</a>
-                            <a href="#" class="gallery-filter" data-filter=".cat-rent">Rent</a>
-                            <a href="#" class="gallery-filter" data-filter=".cat-comercial">Comercial</a>
-                        </div> --}}
-
+<div class="listing-grid gisp">
+    @foreach ($properties as $property)
+        <div class="listing-grid-item">
+            <div class="listing-item cat-sale">
+                <div class="geodir-category-listing">
+                    <div class="geodir-category-img">
+                        <a href="{{ route('single-property', $property->id) }}" class="geodir-category-img_item">
+                            <div class="bg" data-bg="{{ asset($property->images->first()->images) }}"></div>
+                            <div class="overlay"></div>
+                        </a>
+                        <ul class="list-single-opt_header_cat">
+                            <li><a href="#" class="cat-opt">{{ $property->appartmentType->name }}</a></li>
+                        </ul>
                     </div>
-                    <!-- listing-grid-->
-                    <div class="listing-grid gisp">
-                        <!-- listing-grid-item-->
-                        <div class="listing-grid gisp">
-                            <!-- listing-grid-item-->
-                            @foreach ($properties as $property)
-                                @php
-                                     $typeClass = 'cat-' . strtolower(str_replace(' ', '-', $property->appartmentType->name));
-                                @endphp
-                                <div class="listing-grid-item  {{ $typeClass }}">
-                                    <div class="listing-item">
-                                        <div class="geodir-category-listing">
-                                            <div class="geodir-category-img">
-                                                <a href="{{ route('single-property', $property->id) }}"
-                                                    class="geodir-category-img_item">
-                                                    <div class="bg"
-                                                        data-bg="{{ asset($property->images->first()->images) }}"></div>
-                                                    <div class="overlay"></div>
-                                                </a>
-                                                <ul class="list-single-opt_header_cat">
-                                                    <li><a href="#" class="cat-opt">Sale</a></li>
-                                                    <li><a href="#" class="cat-opt">House</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="geodir-category-content">
-                                                <h3>
-                                                    <a
-                                                        href="{{ route('single-property', $property->id) }}">{{ $property->property_title }}</a>
-                                                </h3>
-                                                <div class="geodir-category-content_price">
-                                                    $ {{ $property->price }}
-                                                </div>
-                                                <p>
-                                                    {{ $property->keyword }}
-                                                </p>
-                                                <div class="geodir-category-content-details">
-                                                    <ul>
-                                                        <li>
-                                                            <i
-                                                                class="fa-light fa-bed"></i><span>{{ $property->bedroom }}</span>
-                                                        </li>
-                                                        <li>
-                                                            <i
-                                                                class="fa-light fa-bath"></i><span>{{ $property->bethrooms }}</span>
-                                                        </li>
-                                                        <li>
-                                                            <i
-                                                                class="fa-light fa-chart-area"></i><span>{{ $property->area }}</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="geodir-category-footer">
-                                                <a href="agent-single.html" class="gcf-company"><img
-                                                        src="{{ asset('frontend/images/announcer.jpg') }}"
-                                                        alt="" /><span>By Niko Furingee</span></a>
-                                                <a href="{{ route('single-property', $property->id) }}"
-                                                    class="gid_link"><span>View Details</span>
-                                                    <i class="fa-solid fa-caret-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                            <!-- listing-grid-item end-->
+                    <div class="geodir-category-content">
+                        <h3>
+                            <a href="{{ route('single-property', $property->id) }}">{{ $property->property_title }}</a>
+                        </h3>
+                        <div class="geodir-category-content_price">
+                            $ {{ $property->price }}
                         </div>
-
-
-
-                        <!-- listing-grid-item end-->
-
-                        <!-- listing-grid-item end-->
+                        <p>{{ $property->keyword }}</p>
+                        <div class="geodir-category-content-details">
+                            <ul>
+                                <li><i class="fa-light fa-bed"></i><span>{{ $property->bedroom }}</span></li>
+                                <li><i class="fa-light fa-bath"></i><span>{{ $property->bethrooms }}</span></li>
+                                <li><i class="fa-light fa-chart-area"></i><span>{{ $property->area }}</span></li>
+                            </ul>
+                        </div>
                     </div>
+                    <div class="geodir-category-footer">
+                        <a href="agent-single.html" class="gcf-company"><img src="{{ asset('frontend/images/announcer.jpg') }}" alt="" /><span>By Niko Furingee</span></a>
+                        <a href="{{ route('single-property', $property->id) }}" class="gid_link"><span>View Details</span>
+                            <i class="fa-solid fa-caret-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
                     {{-- {{ $properties->links('vendor.pagination.default') }} --}}
                     <!-- listing-grid end-->
                     <!-- <a href="listing.html" class="commentssubmit csb-no-align"
-                                        >View All Properties <i class="fa-solid fa-caret-right"></i
-                                      ></a> -->
+                                    >View All Properties <i class="fa-solid fa-caret-right"></i
+                                  ></a> -->
                 </div>
                 <!--boxed-container end-->
             </div>

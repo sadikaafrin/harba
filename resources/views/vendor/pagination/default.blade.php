@@ -34,8 +34,5 @@
                 <a href="#" class="nextposts-link disabled"><i class="fa fa-caret-right"></i></a>
             @endif
         </div>
-        <div class="load-more_btn">
-            <i class="fa-solid fa-arrows-spin"></i> Load More
-        </div>
     </div>
 @endif
