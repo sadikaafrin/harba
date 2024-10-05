@@ -39,7 +39,9 @@ use App\Http\Controllers\Web\Backend\AppartmentTypeController;
 
 //!Route for HomeController
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
-Route::get('/appartment-type/{type}', [HomeController::class, 'filterByAppartmentType'])->name('appartment.type');
+Route::get('/appartment-type/search', [HomeController::class, 'typersearch'])->name('appartment.type.search');
+
+// Route::get('/appartment-type/{type}', [HomeController::class, 'filterByAppartmentType'])->name('appartment.type.search');
 
 Route::get('/listing-single/{id}', [SinglePropertyController::class, 'index'])->name('single-property');
 // Route::post('/user-request', [SinglePropertyController::class,'store'])->name('user-request');

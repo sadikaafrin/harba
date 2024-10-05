@@ -106,64 +106,32 @@
                                                 <i class="far fa-sliders-h"></i><span>Use Quick Search</span>
                                             </div>
                                         </div>
-                                        <div class="custom-form">
-                                            <div class="row">
-                                                <!-- listsearch-input-item -->
-                                                <div class="col-lg-12">
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="cs-intputwrap">
-                                                                <i class="fa-light fa-calendar-days"></i>
-                                                                <input type="text" class="dateInput"
-                                                                    placeholder="Arrival Date" value="" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="cs-intputwrap">
-                                                                <i class="fa-light fa-calendar-days"></i>
-                                                                <input type="text" class="dateInput"
-                                                                    placeholder="Departure Date" value="" />
-                                                            </div>
+                                        <form action="{{ route('appartment.type.search') }}" method="GET">
+                                            <div class="custom-form">
+                                                <div class="row">
+                                                    <!-- Single Date Input for created_at -->
+                                                    <div class="col-lg-6">
+                                                        <div class="cs-intputwrap">
+                                                            <i class="fa-light fa-calendar-days"></i>
+                                                            <input type="date" name="created_at" class="dateInput"
+                                                                placeholder="Created Date" value="{{ request('created_at') }}" />
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- listsearch-input-item -->
-                                                <!-- listsearch-input-item -->
-                                                <div class="col-lg-12">
-                                                    <div class="cs-intputwrap">
-                                                        <i class="fa-light fa-layer-group"></i>
-                                                        <select data-placeholder="Categories"
-                                                            class="chosen-select on-radius no-search-select">
-                                                            <option>Type of property</option>
-                                                            <option>Appartement</option>
-                                                            <option>Villa</option>
-                                                            <option>Guesthouse</option>
-                                                            <option>Hotel</option>
-                                                            <option>Office</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <!-- listsearch-input-item -->
-                                                <!-- listsearch-input-item -->
-                                                <div class="col-lg-12">
-                                                    <div class="cs-intputwrap">
-                                                        <div class="price-range-wrap">
-                                                            <label>Price Range</label>
-                                                            <div class="price-rage-item">
-                                                                <input type="text" class="price-range-double"
-                                                                    data-min="100" data-max="100000" name="price-range1"
-                                                                    data-step="1" value="1" data-prefix="$" />
-                                                            </div>
+
+                                                    <!-- Single Date Input for updated_at -->
+                                                    <div class="col-lg-6">
+                                                        <div class="cs-intputwrap">
+                                                            <i class="fa-light fa-calendar-days"></i>
+                                                            <input type="date" name="updated_at" class="dateInput"
+                                                                placeholder="Updated Date" value="{{ request('updated_at') }}" />
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- listsearch-input-item -->
+
+                                                <!-- Search Button -->
+                                                <button class="commentssubmit commentssubmit_fw">Search</button>
                                             </div>
-                                            <!-- listsearch-input-item -->
-                                            <button class="commentssubmit commentssubmit_fw">
-                                                Search
-                                            </button>
-                                        </div>
+                                        </form>
                                     </div>
                                     <div class="hero-notifer">Need more search options? <a
                                             href="{{ route('listing-search') }}">Advanced Search</a></div>
