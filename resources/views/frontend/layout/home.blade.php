@@ -97,45 +97,8 @@
                                     </div>
                                     <!-- hero-carousel-wrapper -->
                                 </div>
-                                <div class="col-lg-4 mob-hid">
-                                    <!-- list-searh-input-wrap-->
-                                    <div
-                                        class="list-searh-input-wrap box_list-searh-input-wrap lws_column hero_home_search lsiw_dec">
-                                        <div class="list-searh-input-wrap-title_wrap">
-                                            <div class="list-searh-input-wrap-title">
-                                                <i class="far fa-sliders-h"></i><span>Use Quick Search</span>
-                                            </div>
-                                        </div>
-                                        <form action="{{ route('appartment.type.search') }}" method="GET">
-                                            <div class="custom-form">
-                                                <div class="row">
-                                                    <!-- Single Date Input for created_at -->
-                                                    <div class="col-lg-6">
-                                                        <div class="cs-intputwrap">
-                                                            <i class="fa-light fa-calendar-days"></i>
-                                                            <input type="date" name="created_at" class="dateInput"
-                                                                placeholder="Created Date" value="{{ request('created_at') }}" />
-                                                        </div>
-                                                    </div>
+                                @include('frontend.layout.user.property-search')
 
-                                                    <!-- Single Date Input for updated_at -->
-                                                    <div class="col-lg-6">
-                                                        <div class="cs-intputwrap">
-                                                            <i class="fa-light fa-calendar-days"></i>
-                                                            <input type="date" name="updated_at" class="dateInput"
-                                                                placeholder="Updated Date" value="{{ request('updated_at') }}" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Search Button -->
-                                                <button class="commentssubmit commentssubmit_fw">Search</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="hero-notifer">Need more search options? <a
-                                            href="{{ route('listing-search') }}">Advanced Search</a></div>
-                                </div>
                             </div>
                         </div>
                         <div class="hs-scroll-down-wrap">
@@ -212,7 +175,8 @@
                             <!-- listing-grid-item-->
                             @foreach ($properties as $property)
                                 @php
-                                     $typeClass = 'cat-' . strtolower(str_replace(' ', '-', $property->appartmentType->name));
+                                    $typeClass =
+                                        'cat-' . strtolower(str_replace(' ', '-', $property->appartmentType->name));
                                 @endphp
                                 <div class="listing-grid-item  {{ $typeClass }}">
                                     <div class="listing-item">
@@ -252,8 +216,9 @@
                                                         </li>
                                                         <li>
                                                             <i
-                                                                class="fa-light fa-chart-area"></i><span>{{ $property->area }}</span>
+                                                                class="fa-light fa-chart-area"></i><span>{{ $property->area }}ft</span>
                                                         </li>
+                                                      
                                                     </ul>
                                                 </div>
                                             </div>
@@ -281,8 +246,8 @@
                     {{-- {{ $properties->links('vendor.pagination.default') }} --}}
                     <!-- listing-grid end-->
                     <!-- <a href="listing.html" class="commentssubmit csb-no-align"
-                                        >View All Properties <i class="fa-solid fa-caret-right"></i
-                                      ></a> -->
+                                                                    >View All Properties <i class="fa-solid fa-caret-right"></i
+                                                                  ></a> -->
                 </div>
                 <!--boxed-container end-->
             </div>
@@ -475,3 +440,15 @@
         <!--main-content end-->
     </div>
 @endsection
+
+@push('script')
+<script>
+ // Script to capture the price range values and set them to hidden inputs
+ $('.price-range-double').on('change', function () {
+        var rangeValues = $(this).val().split(',');
+        $('#price_min').val(rangeValues[0]);
+        $('#price_max').val(rangeValues[1]);
+ });
+</script>
+
+@endpush

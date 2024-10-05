@@ -108,13 +108,7 @@
                                         </div>
                                         <div class="custom-form">
                                             <div class="row">
-                                                {{-- <!-- listsearch-input-item -->
-                                                <div class="col-lg-12">
-                                                    <div class="cs-intputwrap">
-                                                        <i class="fa-light fa-location-dot"></i>
-                                                        <input type="text" placeholder="Where to go" value="" />
-                                                    </div>
-                                                </div> --}}
+
                                                 <!-- listsearch-input-item -->
                                                 <!-- listsearch-input-item -->
                                                 <div class="col-lg-12">
@@ -230,7 +224,7 @@
                     <div class="listing-grid gisp">
                         <!-- listing-grid-item-->
                         @if ($properties->isEmpty())
-                            <p>No properties found matching "{{ $searchTerm }}".</p>
+                            <p>No properties found matching .</p>
                         @else
                             <p class="fw-bold">{{ $properties->count() }} properties found.</p>
                             <div class="listing-grid gisp">

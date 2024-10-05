@@ -29,7 +29,7 @@ class Role
 
         // If the route is for the admin dashboard
         if ($request->routeIs('dashboard') && $userRole !== 'admin') {
-            return redirect()->route('add-listing');
+            return redirect()->route('user-dashboard');
         }
 
         // If the route is for adding a listing and the user is an admin

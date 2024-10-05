@@ -47,7 +47,8 @@ Route::get('/listing-single/{id}', [SinglePropertyController::class, 'index'])->
 // Route::post('/user-request', [SinglePropertyController::class,'store'])->name('user-request');
 Route::get('/search-properties', [SinglePropertyController::class, 'search'])->name('properties.search');
 
-Route::get('/listing', [ListingController::class, 'index'])->name('listing-search');
+Route::get('/advance-listing', [ListingController::class, 'index'])->name('listing-search');
+Route::get('/advance-search-listing', [ListingController::class, 'advanceSearch'])->name('advance.listing-search');
 
 Route::get('/add-listing', [AddListingController::class, 'AddListing'])->name('add-listing');
 Route::post('/add-listing', [AddListingController::class, 'store'])->name('add-listing.store');

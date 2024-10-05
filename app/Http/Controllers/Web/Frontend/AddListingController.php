@@ -20,11 +20,15 @@ class AddListingController extends Controller
 {
     public function AddListing()
     {
+        // Ensure the user is logged in
+        if (!Auth::check()) {
+            return redirect()->back();
+        }
+
         $categories = Category::all();
         $appartmenType = AppartmentType::all();
         $allCity = AllCity::all();
-        $amenities = Amenity::all(); // Retrieve all amenities
-
+        $amenities = Amenity::all(); 
 
         return view('frontend.layout.add_listing.index', compact('categories', 'appartmenType', 'allCity', 'amenities'));
     }

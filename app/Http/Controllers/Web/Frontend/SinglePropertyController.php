@@ -6,11 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Models\UserRequest;
+use Illuminate\Support\Facades\Auth;
 
 class SinglePropertyController extends Controller
 {
     public function index($id)
     {
+        // Ensure the user is logged in
+        if (!Auth::check()) {
+            return redirect()->back();
+        }
         $singleProperty = Property::with(['images', 'amenities', 'user'])->findOrFail($id);
         return view('frontend.layout.listing-single', compact('singleProperty'));
     }

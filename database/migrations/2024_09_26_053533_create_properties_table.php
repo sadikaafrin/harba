@@ -28,7 +28,7 @@ return new class extends Migration
             $table->unsignedBigInteger('all_cities_id');
             $table->foreign('all_cities_id')->references('id')->on('all_cities')->onDelete('cascade');
             $table->text('address');
-            $table->string('area');
+            $table->integer('area');
             $table->integer('bedroom');
             $table->integer('bethrooms');
             $table->string('parking');
