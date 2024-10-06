@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $properties = Property::with(['appartmentType', 'images'])
+        $properties = Property::with(['appartmentType', 'images', 'user'])
             ->where('feature', 'active')
             ->get();
 

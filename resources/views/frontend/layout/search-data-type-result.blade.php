@@ -229,6 +229,17 @@
                             <p class="fw-bold">{{ $properties->count() }} properties found.</p>
                             <div class="listing-grid gisp">
                                 @foreach ($properties as $property)
+                                    @php
+                                        $typeClass =
+                                            'cat-' .
+                                            strtolower(
+                                                str_replace(
+                                                    ' ',
+                                                    '-',
+                                                    optional($property->appartmentType)->name ?? 'default',
+                                                ),
+                                            );
+                                    @endphp
                                     <div class="listing-grid-item">
                                         <div class="listing-item cat-comercial cat-sale">
                                             <div class="geodir-category-listing">
@@ -266,16 +277,26 @@
                                                             </li>
                                                             <li>
                                                                 <i
-                                                                    class="fa-light fa-chart-area"></i><span>{{ $property->area }}</span>
+                                                                    class="fa-light fa-chart-area"></i><span>{{ $property->area }}ft</span>
                                                             </li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                                 <div class="geodir-category-footer">
                                                     <a href="agent-single.html" class="gcf-company">
-                                                        <img src="{{ asset('frontend/images/announcer.jpg') }}"
-                                                            alt="" />
-                                                        <span>By Niko Furingee</span>
+                                                        @php
+                                                            $typeClass = optional($property->appartmentType)->name;
+                                                            // Set the default image path
+                                                            $defaultImage = asset('frontend/images/announcer.jpg');
+
+                                                            // Get the user's profile picture if it exists; otherwise, use the default image
+                                                            $profilePicture = optional($property->user)->profile_picture
+                                                                ? asset(optional($property->user)->profile_picture)
+                                                                : $defaultImage;
+                                                        @endphp
+
+                                                        <img src="{{ $profilePicture }}" alt="User Image" />
+                                                        <span>{{ optional($property->user)->name }}</span>
                                                     </a>
                                                     <a href="{{ route('single-property', $property->id) }}"
                                                         class="gid_link">
@@ -296,8 +317,8 @@
                     </div>
                     <!-- listing-grid end-->
                     <!-- <a href="listing.html" class="commentssubmit csb-no-align"
-                    >View All Properties <i class="fa-solid fa-caret-right"></i
-                  ></a> -->
+                                                        >View All Properties <i class="fa-solid fa-caret-right"></i
+                                                      ></a> -->
                 </div>
                 <!--boxed-container end-->
             </div>

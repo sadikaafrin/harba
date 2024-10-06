@@ -126,7 +126,8 @@
                         <div class="log-separator fl-wrap"><span>or</span></div>
                         <div class="soc-log  fl-wrap">
                             <p>For faster login or register use your social account.</p>
-                            <a href="#" class="google_log"><i class="fa-brands fa-google"></i>Connect with
+                            <a href="{{ route('google-login') }}" class="google_log"><i
+                                    class="fa-brands fa-google"></i>Connect with
                                 Google</a>
                             <a href="#" class="fb_log"><i class="fa-brands fa-facebook-f"></i> Connect with
                                 Facebook</a>

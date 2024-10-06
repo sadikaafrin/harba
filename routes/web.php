@@ -10,6 +10,8 @@ use App\Http\Controllers\Web\Frontend\UserDashboardController;
 use App\Http\Controllers\Web\Frontend\UserAdvertisement;
 use App\Http\Controllers\Web\Frontend\UserRequestController;
 use App\Http\Controllers\Web\Backend\AppartmentTypeController;
+use App\Http\Controllers\Auth\GoogleController;
+
 
 
 /*
@@ -37,6 +39,9 @@ use App\Http\Controllers\Web\Backend\AppartmentTypeController;
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
+Route::get('/auth/google', [GoogleController::class, 'GoogleRedirect'])->name('google-login');
+Route::any('/auth/google/callback', [GoogleController::class, 'GoogleCallback']);
+
 //!Route for HomeController
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 Route::get('/appartment-type/search', [HomeController::class, 'typersearch'])->name('appartment.type.search');
@@ -55,7 +60,7 @@ Route::post('/add-listing', [AddListingController::class, 'store'])->name('add-l
 
 Route::get('/user-dashboard', [UserDashboardController::class, 'UserDashboardController'])->name('user-dashboard');
 
-Route::get('/user-all-requests',[UserDashboardController::class, 'AllRequest'])->name('user-all-requests');
+Route::get('/user-all-requests', [UserDashboardController::class, 'AllRequest'])->name('user-all-requests');
 Route::get('/edit-profile', [UserDashboardController::class, 'EditProfile'])->name('edit-profile');
 
 
@@ -72,7 +77,9 @@ Route::post('/update-user-profile', [UserDashboardController::class, 'Update'])-
 Route::get('/user-advertisement', [UserAdvertisement::class, 'advertisemnent'])->name('user-advertisement');
 
 //!user Request
-Route::post('/user-request', [UserRequestController::class,'store'])->name('user-request');
-Route::get('/user-request-search', [UserRequestController::class,'search'])->name('user-request.search');
+Route::post('/user-request', [UserRequestController::class, 'store'])->name('user-request');
+Route::get('/user-request-search', [UserRequestController::class, 'search'])->name('user-request.search');
 
-require __DIR__.'/auth.php';
+
+
+require __DIR__ . '/auth.php';

@@ -111,71 +111,82 @@
                                         </div>
                                     </div>
 
-                                    <!-- listsearch-input-item -->
-                                    <!-- Price Range Input -->
-                                    {{-- <div class="col-lg-4">
-                                        <div class="cs-inputwrap">
-                                            <div class="price-range-wrap fl-wrap">
-                                                <label>Price Range</label>
-                                                <div class="price-range-item">
-                                                    <input type="hidden" id="price_min" name="price_min" value="{{ request('price_min') }}" />
-                                                    <input type="hidden" id="price_max" name="price_max" value="{{ request('price_max') }}" />
-                                                    <input type="text" id="price_range" class="price-range-double"
-                                                        data-min="" data-max="" value="{{ request('price_min') - request('price_max') }}" readonly />
-                                                    <div id="slider" class="slider"></div>
-                                                </div>
-                                            </div>
-                                           </div>
-                                    </div> --}}
 
-                                    {{-- <div class="col-lg-4">
-                                        <div class="cs-inputwrap">
-                                            <div class="price-range-wrap fl-wrap">
-                                                <label>Price Range</label>
-                                                <div class="price-range-item">
-                                                    <!-- Hidden inputs to store the min and max price -->
-                                                    <input type="hidden" id="price_min" name="price_min" value="{{ request('price_min') ?? 0 }}" />
-                                                    <input type="hidden" id="price_max" name="price_max" value="{{ request('price_max') ?? 1000 }}" />
-
-                                                    <!-- Visible input showing the range -->
-                                                    <input type="text" id="price_range" class="price-range-double"
-                                                        value="" />
-
-                                                    <!-- Slider -->
-                                                    <div id="slider" class="slider"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-
+                                    <!--price filter -->
                                     <div class="col-lg-4">
                                         <div class="cs-intputwrap">
                                             <div class="price-range-wrap fl-wrap">
                                                 <label>Price Range</label>
                                                 <div class="price-rage-item">
                                                     <input type="text" class="price-range-double" data-min="100"
-                                                        data-max="100000" name="price" data-step="1" value="1"
-                                                        data-prefix="$" />
+                                                        data-max="100000" name="price" data-prefix="$" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-
-
                                     <!-- listsearch-input-item -->
-                                    <!-- Area Input Field -->
+
+
+                                    <!-- listsearch-area start -->
                                     <div class="col-lg-4">
                                         <div class="cs-intputwrap">
                                             <div class="price-range-wrap fl-wrap">
-                                                <label>Area (Sq/ft)</label>
+                                                <label>Area Sq/ft</label>
                                                 <div class="price-rage-item pr-nopad fl-wrap">
-                                                    <input type="number" class="price-range-double" data-min="1"
-                                                        data-max="1000" name="area" placeholder="Enter area" required />
+                                                    <input type="text" class="price-range-double" data-min="1"
+                                                        data-max="1000" name="area" data-step="1" data-prefix="" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- listsearch-area end -->
+                                    <!-- listsearch-input-item -->
+                                    <div class="col-lg-2">
+                                        <div class="hidden-listing_search_wrap">
+                                            <div class="more_search-btn">
+                                                More Options <i class="fa-regular fa-plus"></i>
+                                            </div>
+                                            <div class="hidden-listing-filter">
+                                                <!--bathroom filter start -->
+                                                <div class="quantity_wrap">
+                                                    <div class="quantity_wrap_title">
+                                                        <i class="fa-light fa-bath"></i><span>Bathrooms</span>
+                                                    </div>
+                                                    <div class="quantity">
+                                                        <div class="quantity-item">
+                                                            <input type="button" value="-" class="minus" />
+                                                            <input type="text" name="bethrooms" title="Qty"
+                                                                class="qty" data-min="1" data-max="10"
+                                                                data-step="1" value="1" /> <!-- Default value -->
+                                                            <input type="button" value="+" class="plus" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- bathroom filter end -->
+                                                <!-- hidden-listing-item -->
+                                                <div class="hidden-listing-item">
+                                                    <div class="filter-tags-title">Amenities</div>
+                                                    <div class="filter-tags">
+                                                        <ul class="no-list-style">
+                                                            @foreach ($amenities as $amenity)
+                                                                <li>
+                                                                    <input id="amenity-{{ $amenity->id }}"
+                                                                        type="checkbox" name="amenities[]"
+                                                                        value="{{ $amenity->id }}" />
+                                                                    <label
+                                                                        for="amenity-{{ $amenity->id }}">{{ $amenity->title }}</label>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- hidden-listing-item end-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- listsearch-input-item -->
+                                    <!-- listsearch-input-item -->
                                     <!-- Search Button -->
                                     <div class="col-lg-2">
                                         <button type="submit" class="commentssubmit commentssubmit_fw">Search</button>
@@ -404,8 +415,4 @@
     </div>
 @endsection
 @push('script')
-<script>
-
-</script>
-
 @endpush

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\AllCity;
+use App\Models\Amenity;
 use App\Models\AppartmentType;
 use App\Models\Property;
 use Illuminate\Http\Request;
@@ -12,19 +13,30 @@ class ListingController extends Controller
 {
     public function index(Request $request)
     {
-
-        $properties = Property::with(['appartmentType', 'images'])
+        // Fetch all amenities
+        $amenities = Amenity::all();
+        $properties = Property::with(['appartmentType', 'images', 'amenities'])
             ->where('feature', 'active')
             ->get();
 
+
+        // Filter properties if amenities are selected
+        if ($request->has('amenities')) {
+            $selectedAmenities = $request->input('amenities');
+
+            $properties = $properties->whereHas('amenities', function ($query) use ($selectedAmenities) {
+                $query->whereIn('amenity_id', $selectedAmenities);
+            });
+        }
+
         $appartmentTypes = AppartmentType::all();
         $propertyCity = AllCity::all();
-        return view('frontend.layout.listing-search', compact('properties', 'appartmentTypes', 'propertyCity'));
+        return view('frontend.layout.listing-search', compact('properties', 'appartmentTypes', 'propertyCity', 'amenities'));
     }
 
     public function advanceSearch(Request $request)
     {
-        dd($request->all());
+
         // Initialize the query
         $query = Property::with(['appartmentType', 'images'])
             ->where('feature', 'active');
@@ -51,31 +63,57 @@ class ListingController extends Controller
             $query->where('all_cities_id', $request->city_id);
         }
 
-        // Get min and max price from the request
-        $minPrice = $request->input('min_price');
-        $maxPrice = $request->input('max_price');
 
-        // Apply filters if values are set
-        if ($minPrice !== null && is_numeric($minPrice)) {
-            $query->where('price', '>=', $minPrice);
+        // Apply price range filter (using only `price` column)
+        if ($request->filled('min_price') && is_numeric($request->min_price)) {
+            $query->where('price', '>=', $request->min_price);
         }
 
-        if ($maxPrice !== null && is_numeric($maxPrice)) {
-            $query->where('price', '<=', $maxPrice);
+        if ($request->filled('max_price') && is_numeric($request->max_price)) {
+            $query->where('price', '<=', $request->max_price);
         }
 
-        if ($request->filled('area')) {
-            $query->where('area', '>=', (int)$request->area); // Ensure it's an integer
+        // if ($request->filled('price')) {
+        //     $query->where('price', '>=', (int)$request->price);
+        // }
+
+
+        // Apply area range filter (using only `area` column)
+        if ($request->filled('min_area') && is_numeric($request->min_area)) {
+            $query->where('area', '>=', $request->min_area);
         }
+
+        if ($request->filled('max_area') && is_numeric($request->max_area)) {
+            $query->where('area', '<=', $request->max_area);
+        }
+
+        // if ($request->filled('area')) {
+        //     $query->where('area', '>=', (int)$request->area);
+        // }
+
+
+        // Filter by bathrooms
+        if ($request->filled('bethrooms') && is_numeric($request->bethrooms)) {
+            $query->where('bethrooms', '>=', $request->bethrooms);
+        }
+
+        // Filter by amenities
+        if ($request->filled('amenities') && is_array($request->amenities)) {
+            $query->whereHas('amenities', function ($query) use ($request) {
+                $query->whereIn('amenity_id', $request->amenities);
+            });
+        }
+
         // Execute the query and get filtered properties
         $properties = $query->get();
         // Dynamic price range
 
         $appartmentTypes = AppartmentType::all();
+        $allCities = AllCity::all();
 
 
         // Search term for display (optional)
         $searchTerm = "Filtered Properties"; // Customize based on your filters
-        return view('frontend.layout.advance-search.listing-search', compact('properties', 'appartmentTypes', 'searchTerm'));
+        return view('frontend.layout.advance-search.listing-search', compact('properties', 'appartmentTypes', 'allCities', 'searchTerm'));
     }
 }
