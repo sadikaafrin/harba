@@ -30,23 +30,26 @@ class GoogleController extends Controller
     {
         $user = Socialite::driver('google')->user();
 
-
-        $findUser = User::where('google_id', $user->id)->first();
+        // First, check if a user with the same email already exists
+        $findUser = User::where('email', $user->email)->first();
 
         if ($findUser) {
+            // If user already exists, update the google_id and log them in
+            $findUser->google_id = $user->id; // Update google_id
+            $findUser->save(); // Save changes
             auth()->login($findUser);
         } else {
+            // If user doesn't exist, create a new user
             $newUser = User::create([
                 'name'             => $user->name,
                 'email'            => $user->email,
-                'password'         => bcrypt(Str::random(20)),
-                'google_id'        => $user->id,
-                'profile_picture'  => $user->profile_picture,
+                'password'         => bcrypt(Str::random(20)), // Random password
+                'google_id'        => $user->id, // Store the Google ID
                 'terms_and_policy' => true,
             ]);
 
             auth()->login($newUser);
         }
-        return redirect()->route('home');
+        return redirect()->route('user-dashboard');
     }
 }
