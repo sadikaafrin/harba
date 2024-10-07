@@ -1,6 +1,50 @@
 @extends('frontend.app')
 @push('css')
+    {{-- <link href="https://cdn.jsdelivr.net/npm/use-bootstrap-tag@2.2.2/dist/use-bootstrap-tag.min.css" rel="stylesheet"> --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
+    <style>
+        .tags-input-container {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            min-height: 50px;
+            /* Ensure there's enough space for tags */
+        }
+
+        .tags-input-container input {
+            border: none;
+            outline: none;
+            flex-grow: 1;
+            margin-left: 5px;
+            padding: 5px;
+        }
+
+        .tag-box {
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            padding: 5px 10px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tag-box .remove-tag {
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .tag-box .remove-tag:hover {
+            color: #ff0000;
+        }
+    </style>
 @endpush
 @section('content')
     @php
@@ -100,6 +144,30 @@
                                                         </div>
                                                         <!-- listsearch-input-item -->
                                                     </div>
+                                                    {{-- <div class="col-lg-12">
+                                                        <!-- listsearch-input-item -->
+                                                        <div class="cs-intputwrap tags-input-container"
+                                                            id="tags-input-container">
+                                                            <input type="text" placeholder="Enter keywords..."
+                                                                value="{{ old('tag') }}" id="keyword-input"
+                                                                name="tag" />
+                                                        </div>
+                                                        <!-- listsearch-input-item -->
+                                                    </div> --}}
+
+                                                    <div class="col-lg-12">
+                                                        <!-- listsearch-input-item -->
+                                                        <div class="cs-intputwrap tags-input-container"
+                                                            id="tags-input-container">
+                                                            <input type="text" placeholder="Enter keywords..."
+                                                                id="keyword-input" />
+                                                            <!-- Hidden input to store tags -->
+                                                            <input type="hidden" name="tag" id="tags-hidden-input"
+                                                                value="{{ old('tags') }}" />
+                                                        </div>
+                                                        <!-- listsearch-input-item -->
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -306,7 +374,7 @@
                                 <!-- pricing-column end-->
                             </div>
                             <div class="limit-box"></div>
-                        </from>
+                            </from>
                     </div>
                     <!--boxed-container end-->
                 </div>
@@ -327,7 +395,63 @@
 @endsection
 
 @push('script')
+    {{-- <script src="https://cdn.jsdelivr.net/npm/uootstrap-tag.min.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputField = document.getElementById('keyword-input');
+            const tagsContainer = document.getElementById('tags-input-container');
+            const hiddenInput = document.getElementById('tags-hidden-input');
+
+            let tags = [];
+
+            inputField.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === 'Tab' || e.key === ',') {
+                    e.preventDefault();
+                    const inputValue = inputField.value.trim();
+                    if (inputValue !== '') {
+                        addTag(inputValue);
+                    }
+                    inputField.value = ''; // Clear the input field
+                }
+            });
+
+            function addTag(tag) {
+                if (!tags.includes(tag)) {
+                    tags.push(tag);
+                    const tagElement = document.createElement('div');
+                    tagElement.classList.add('tag-box');
+                    tagElement.innerHTML = `${tag} <span class="remove-tag">&times;</span>`;
+                    tagsContainer.insertBefore(tagElement, inputField); // Add before the input field
+
+                    updateHiddenInput(); // Update the hidden input with all tags
+
+                    // Remove tag on clicking the cross icon
+                    tagElement.querySelector('.remove-tag').addEventListener('click', function() {
+                        removeTag(tag, tagElement);
+                    });
+                }
+            }
+
+            function removeTag(tag, element) {
+                const index = tags.indexOf(tag);
+                if (index > -1) {
+                    tags.splice(index, 1);
+                }
+                element.remove();
+                updateHiddenInput(); // Update the hidden input after removing the tag
+            }
+
+            function updateHiddenInput() {
+                hiddenInput.value = tags.join(','); // Store tags as a comma-separated string
+            }
+        });
+    </script>
+
     <script>
         $(document).ready(function() {
             $('#propertyForm').submit(function(e) {
@@ -346,18 +470,20 @@
                         $('#propertyForm')[0].reset(); // Reset the form
                         $('#image-preview-container').empty(); // Clear the image previews
                         $('#properties-list')
-                    .empty(); // Assuming this is your container for displaying listings
+                            .empty(); // Assuming this is your container for displaying listings
                     },
                     error: function(xhr) {
                         if (xhr.responseJSON && xhr.responseJSON.errors) {
                             let errors = xhr.responseJSON.errors;
                             $.each(errors, function(key, value) {
                                 toastr.error(value[
-                                0]); // Display the first error message for each field
+                                    0
+                                ]); // Display the first error message for each field
                             });
                         } else {
                             toastr.error(
-                            'An unexpected error occurred.'); // Fallback for unexpected errors
+                                'An unexpected error occurred.'
+                            ); // Fallback for unexpected errors
                         }
                     }
                 });

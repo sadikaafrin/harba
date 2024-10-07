@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('property_title');
             $table->decimal('price', 8, 2);
             $table->string('keyword');
+            $table->string('tag');
             $table->string('phone');
             $table->string('email');
             $table->unsignedBigInteger('all_cities_id');

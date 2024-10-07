@@ -80,6 +80,10 @@ Route::get('/user-advertisement', [UserAdvertisement::class, 'advertisemnent'])-
 Route::post('/user-request', [UserRequestController::class, 'store'])->name('user-request');
 Route::get('/user-request-search', [UserRequestController::class, 'search'])->name('user-request.search');
 
+// Route::fallback(function(){
+//     return "<h4>URL not found</h4>";
+// });
+
 
 
 require __DIR__ . '/auth.php';

@@ -28,12 +28,13 @@ class AddListingController extends Controller
         $categories = Category::all();
         $appartmenType = AppartmentType::all();
         $allCity = AllCity::all();
-        $amenities = Amenity::all(); 
+        $amenities = Amenity::all();
 
         return view('frontend.layout.add_listing.index', compact('categories', 'appartmenType', 'allCity', 'amenities'));
     }
     public function store(Request $request)
     {
+
         // Validate the request
         $validator = Validator::make($request->all(), [
             'category_id' => 'required|exists:categories,id',
@@ -41,6 +42,7 @@ class AddListingController extends Controller
             'property_title' => 'required|string|max:255',
             'price' => 'required|numeric',
             'keyword' => 'required|string|max:255',
+            'tag' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'email' => 'required|email|max:255',
             'all_cities_id' => 'required|exists:all_cities,id',
@@ -71,6 +73,7 @@ class AddListingController extends Controller
             $property->user_id = Auth::id(); // Set the authenticated user's ID
 
             $property->all_cities_id = $request->input('all_cities_id')[0]; // Store the first city ID from the array
+            $property->tag = $request->input('tag'); 
             $property->save(); // Save the property
 
             // Attach amenities if provided
