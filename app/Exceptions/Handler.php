@@ -3,7 +3,11 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\AuthenticationException;
+
 use Throwable;
+
+
 
 class Handler extends ExceptionHandler
 {
@@ -45,4 +49,25 @@ class Handler extends ExceptionHandler
             //
         });
     }
+    // Existing code in the Handler class...
+
+    /**
+     * Handle unauthenticated users.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Auth\AuthenticationException  $exception
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        // Check if the request is an API request
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'Unauthenticated.'], 401);
+        }
+
+        // Redirect to the error page if not authenticated
+        return response()->view('errors.401', [], 401);
+    }
+
+
 }

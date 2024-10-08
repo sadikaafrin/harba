@@ -54,7 +54,7 @@
             <p class="mb-4 mx-2">Oops! 😖 The requested URL was not found on this server.</p>
             <a href="{{ route('homepage') }}" class="btn btn-primary">Back to home</a>
             <div class="mt-3">
-                <img src="{{ asset('backend/img/error/401error-page.jpg') }}" alt="page-misc-error-light"
+                <img src="{{ asset('backend/img/error/403error-page.jpg') }}" alt="page-misc-error-light"
                     width="500" class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png"
                     data-app-light-img="illustrations/page-misc-error-light.png" />
             </div>

@@ -24,6 +24,31 @@ class UserDashboardController extends Controller
 
         return view('frontend.layout.user-dashboard', compact('userProperties'));
     }
+
+    // public function UserDashboardController()
+    // {
+    //     try {
+    //         // Get the authenticated user's ID
+    //         $userId = Auth::id();
+
+    //         // Check if user is authenticated
+    //         if (!$userId) {
+    //             return redirect()->route('homepage');
+    //         }
+
+    //         // Retrieve properties related to the authenticated user
+    //         $userProperties = Property::where('user_id', $userId)->get();
+
+    //         // Return the view with user properties
+    //         return view('frontend.layout.user-dashboard', compact('userProperties'))->with('success', 'Welcome to your dashboard!');
+    //     } catch (\Exception $e) {
+    //         // Log the error for debugging purposes
+    //         \Log::error('Error retrieving user properties: ' . $e->getMessage());
+
+    //         // Redirect the user with an error message
+    //         return redirect()->route('user-dashboard')->with('error', 'An error occurred while fetching your properties. Please try again later.');
+    //     }
+    // }
     public function EditProfile()
     {
         return view('frontend.layout.edit-profile');
