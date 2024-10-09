@@ -11,6 +11,8 @@ use App\Models\UserRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
+
 
 class UserDashboardController extends Controller
 {
@@ -83,6 +85,46 @@ class UserDashboardController extends Controller
             'avatar' => asset($user->profile_picture) // Return the new avatar path
         ]);
     }
+
+
+//     public function updatePicture(Request $request)
+// {
+//     // Validate the uploaded file
+//     $request->validate([
+//         'profile_picture' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Make it nullable
+//     ]);
+
+//     $user = Auth::user(); // Get the authenticated user
+
+//     // Check if 15 days have passed since the last update
+//     if ($user->profile_picture && Carbon::now()->diffInDays($user->profile_picture) < 15) {
+//         $daysRemaining = 15 - Carbon::now()->diffInDays($user->profile_picture);
+//         return response()->json([
+//             'error' => "You can update your profile picture again in {$daysRemaining} days."
+//         ], 403); // Forbidden status
+//     }
+
+//     // Check if a new file is present in the request
+//     if ($request->hasFile('profile_picture')) {
+//         // If the user already has a profile picture, delete the old one
+//         if ($user->profile_picture) {
+//             deleteImage($user->profile_picture); // Custom function to delete the old image
+//         }
+
+//         // Upload the new profile picture
+//         $imagePath = uploadImage($request->file('profile_picture'), 'profile_picture', $user->name); // Custom function to upload the new image
+//         $user->profile_picture = $imagePath; // Update the profile_picture field
+//         $user->profile_picture = Carbon::now(); // Update the profile_picture_updated_at field with the current time
+//     }
+
+//     // Save the user record (only the profile_picture and profile_picture_updated_at fields will change)
+//     $user->save();
+
+//     return response()->json([
+//         'success' => 'Profile picture updated successfully.',
+//         'avatar' => asset($user->profile_picture) // Return the new avatar path
+//     ]);
+// }
 
     public function changePassword(Request $request)
     {
